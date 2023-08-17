@@ -2,7 +2,7 @@ CREATE DATABASE infrakeys;
 
 CREATE TYPE user_roles as ENUM('admin', 'user');
 
-CREATE TABLE user(
+CREATE TABLE users(
     id SERIAL NOT NULL PRIMARY KEY,
     fullname VARCHAR(100) NOT NULL,
     username VARCHAR(40) NOT NULL,

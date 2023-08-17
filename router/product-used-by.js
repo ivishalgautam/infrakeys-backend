@@ -22,13 +22,13 @@ const storage = multer.diskStorage({
     callback(null, folderPath);
   },
   filename: function (req, file, callback) {
-    callback(null, file.originalname);
+    callback(null, `${Date.now()}-${file.originalname}`);
   },
 });
 const uploads = multer({ storage });
 
 // routes
-router.post("/", createProductUsedBy);
+router.post("/", uploads.single("file"), createProductUsedBy);
 router.put("/:productApplicationId", updateProductUsedById);
 router.delete("/:productApplicationId", deleteProductUsedById);
 router.get("/:productApplicationId", getProductUsedById);
