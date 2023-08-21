@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-app.use(express.static("assets/*"));
+app.use(express.static("assets/categories"));
 
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/products", require("./router/product"));
