@@ -4,15 +4,16 @@ const fs = require("fs");
 
 async function createProduct(req, res) {
   console.log(req.file);
-  const { title, about, images, category_id } = req.body;
+  const { title, about, category_id } = req.body;
   try {
-    const files = {
-      filename: req.file.originalname,
+    const images_urls = req.files.map((file) => ({
+      // filename: req.file.originalname,
       path: `/${req.file.filename}`,
-    };
+    }));
+
     const { rows } = await pool.query(
       `INSERT INTO banners (title, about, image_url, category_id) VALUES ($1, $2, $3, $4) returning *`,
-      [title, about, images, category_id]
+      [title, about, images_urls, category_id]
     );
     res.json(rows[0]);
   } catch (error) {
@@ -95,9 +96,9 @@ async function updateProductById(req, res) {
 }
 
 module.exports = {
-    createProduct,
-    getProducts,
-    getProductById,
-    deleteProductById,
-    updateProductById,
+  createProduct,
+  getProducts,
+  getProductById,
+  deleteProductById,
+  updateProductById,
 };

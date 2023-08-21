@@ -10,10 +10,12 @@ async function createBanner(req, res) {
       filename: req.file.originalname,
       path: `/${req.file.filename}`,
     };
+
     const { rows } = await pool.query(
       `INSERT INTO banners (name, banner_url, link) VALUES ($1, $2, $3) returning *`,
       [name, files.path, link]
     );
+
     res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });

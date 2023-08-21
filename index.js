@@ -18,7 +18,7 @@ app.use("/api/categories", require("./router/category"));
 app.use("/api/sub-categories", require("./router/sub-category"));
 
 app.get("/", (req, res) => {
-  res.json({ message: "hello" });
+  res.json({ message: "hello world" });
 });
 
 app.listen(PORT, () => {
