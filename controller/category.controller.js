@@ -70,7 +70,7 @@ async function updateCategoryById(req, res) {
 async function getCategories(req, res) {
   try {
     const { rows, rowCount } = await pool.query(`SELECT * FROM categories`);
-    res.json(rows[0]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
