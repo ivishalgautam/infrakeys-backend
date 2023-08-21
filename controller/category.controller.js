@@ -13,6 +13,7 @@ async function createCategory(req, res) {
       `INSERT INTO categories (name, image_url) VALUES ($1, $2) returning *`,
       [name, files.path]
     );
+    res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
