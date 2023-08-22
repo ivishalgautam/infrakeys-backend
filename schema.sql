@@ -54,7 +54,7 @@ CREATE TABLE products (
     title TEXT NOT NULL,
     about TEXT NOT NULL,
     image_url TEXT,
-    category_id int REFERENCES categories(id)
+    sub_category_id int REFERENCES sub_categories(id)
 );
 
 CREATE TABLE product_descriptions(

@@ -6,9 +6,9 @@ async function createProduct(req, res) {
   console.log(req.file);
   const { title, about, category_id } = req.body;
   try {
-    const images_urls = req.files.map((file) => ({
+    const images_urls = req.file.map((file) => ({
       // filename: req.file.originalname,
-      path: `/${req.file.filename}`,
+      path: `/${file.filename}`,
     }));
 
     const { rows } = await pool.query(
