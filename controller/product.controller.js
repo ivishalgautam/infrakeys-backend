@@ -6,10 +6,7 @@ async function createProduct(req, res) {
   console.log(req.files);
   const { title, about, sub_category_id } = req.body;
   try {
-    const images_urls = req.files.map((file) => ({
-      // filename: req.file.originalname,
-      path: `/${file.filename}`,
-    }));
+    const images_urls = req.files.map((file) => `/${file.filename}`);
 
     const { rows } = await pool.query(
       `INSERT INTO products (title, about, image_url, sub_category_id) VALUES ($1, $2, $3, $4) returning *`,
