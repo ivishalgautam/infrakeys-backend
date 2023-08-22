@@ -7,7 +7,7 @@ async function createBanner(req, res) {
   try {
     // const banners = req.file.map((banner) => `/${banner.filename}`);
     console.log(req.file);
-    console.log(banners);
+    // console.log(banners);
     const files = {
       filename: req.file.originalname,
       path: `/${req.file.filename}`,
