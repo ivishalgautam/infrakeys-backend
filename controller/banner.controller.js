@@ -5,7 +5,7 @@ const fs = require("fs");
 async function createBanner(req, res) {
   const { name, category_id } = req.body;
   try {
-    const banners = req.file.map((banner) => `/${banner.filename}`);
+    // const banners = req.file.map((banner) => `/${banner.filename}`);
     console.log(req.file);
     console.log(banners);
     const files = {
@@ -15,7 +15,7 @@ async function createBanner(req, res) {
 
     const { rows } = await pool.query(
       `INSERT INTO banners (name, banner_url, category_id) VALUES ($1, $2, $3) returning *`,
-      [name, banners, category_id]
+      [name, files.path, category_id]
     );
 
     res.json(rows[0]);
