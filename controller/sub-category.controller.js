@@ -4,6 +4,7 @@ const fs = require("fs");
 
 async function createSubCategory(req, res) {
   const { name, category_id } = req.body;
+  // console.log(first)
   try {
     const files = {
       filename: req.file.originalname,
@@ -13,6 +14,7 @@ async function createSubCategory(req, res) {
       `INSERT INTO categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
       [name, files.path, parseInt(category_id)]
     );
+    res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
