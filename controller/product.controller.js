@@ -3,10 +3,10 @@ const path = require("path");
 const fs = require("fs");
 
 async function createProduct(req, res) {
-  console.log(req.file);
+  console.log(req.files);
   const { title, about, category_id } = req.body;
   try {
-    const images_urls = req.file.map((file) => ({
+    const images_urls = req.files.map((file) => ({
       // filename: req.file.originalname,
       path: `/${file.filename}`,
     }));
