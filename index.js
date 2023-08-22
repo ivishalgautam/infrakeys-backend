@@ -7,7 +7,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 
 app.use(express.static("assets/banners"));
 app.use(express.static("assets/categories"));

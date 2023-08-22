@@ -4,7 +4,7 @@ const fs = require("fs");
 
 async function createSubCategory(req, res) {
   const { name, category_id } = req.body;
-  // console.log(first)
+  console.log(req.body);
   try {
     const files = {
       filename: req.file.originalname,
