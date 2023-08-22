@@ -11,7 +11,7 @@ async function createSubCategory(req, res) {
       path: `/${req.file.filename}`,
     };
     const { rows, rowCount } = await pool.query(
-      `INSERT INTO categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
+      `INSERT INTO sub_categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
       [name, files.path, parseInt(category_id)]
     );
     res.json({ data: rows[0] });
