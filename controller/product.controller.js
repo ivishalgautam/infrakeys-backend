@@ -12,7 +12,7 @@ async function createProduct(req, res) {
     }));
 
     const { rows } = await pool.query(
-      `INSERT INTO banners (title, about, image_url, category_id) VALUES ($1, $2, $3, $4) returning *`,
+      `INSERT INTO products (title, about, image_url, category_id) VALUES ($1, $2, $3, $4) returning *`,
       [title, about, images_urls, category_id]
     );
     res.json(rows[0]);
@@ -61,12 +61,12 @@ async function deleteProductById(req, res) {
     const fileName = path.basename(productExist.rows[0].images);
     const filePath = path.join(__dirname, "../assets/products", fileName);
 
-    await pool.query(`DELETE FROM banners WHERE id = $1 returning *`, [
+    await pool.query(`DELETE FROM products WHERE id = $1 returning *`, [
       bannerId,
     ]);
 
     fs.unlinkSync(filePath);
-    res.json({ message: "Banner deleted successfully." });
+    res.json({ message: "product deleted successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
