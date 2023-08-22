@@ -14,7 +14,7 @@ async function createSubCategory(req, res) {
       `INSERT INTO categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
       [name, files.path, parseInt(category_id)]
     );
-    res.json(rows[0]);
+    res.json({ data: rows[0] });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
