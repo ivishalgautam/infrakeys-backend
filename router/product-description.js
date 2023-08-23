@@ -5,7 +5,7 @@ const {
   getProductDescriptionById,
   deleteProductDescriptionById,
   updateProductDescriptionById,
-} = require("../controller/product-description.controller");
+} = require("../controller/product-despcription.controller");
 
 // routes
 router.post("/", createProductDescription);
