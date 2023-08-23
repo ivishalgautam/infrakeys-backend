@@ -2,13 +2,21 @@ const { pool } = require("../config/db");
 
 async function createProductDescription(req, res) {
   console.log(req.file);
-  const { description, product_id } = req.body;
+  const { descriptions, product_id } = req.body;
   try {
-    const { rows } = await pool.query(
-      `INSERT INTO product_descriptions (description, product_id) VALUES ($1, $2) returning *`,
-      [description, product_id]
-    );
-    res.json(rows[0]);
+    let rows = [];
+    for (const record of descriptions) {
+      const sector = await pool.query(
+        `INSERT INTO departments (description, product_id) VALUES ($1, $2) RETURNING *`,
+        [record, product_id]
+      );
+      rows.push(sector.rows[0]);
+    }
+
+    res.json({
+      message: "Descriptions added successfully",
+      descriptions: rows,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
