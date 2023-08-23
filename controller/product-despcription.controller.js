@@ -7,7 +7,7 @@ async function createProductDescription(req, res) {
     let rows = [];
     for (const record of descriptions) {
       const sector = await pool.query(
-        `INSERT INTO departments (description, product_id) VALUES ($1, $2) RETURNING *`,
+        `INSERT INTO product_descriptions (description, product_id) VALUES ($1, $2) RETURNING *`,
         [record, product_id]
       );
       rows.push(sector.rows[0]);
