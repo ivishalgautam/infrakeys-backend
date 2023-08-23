@@ -16,6 +16,10 @@ app.use(express.static("assets/products"));
 
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/products", require("./router/product"));
+app.use("/api/product-applications", require("./router/product-application"));
+app.use("/api/product-descriptions", require("./router/product-description"));
+app.use("/api/product-features", require("./router/product-feature"));
+app.use("/api/product-usedby", require("./router/product-used-by"));
 app.use("/api/banners", require("./router/banner"));
 app.use("/api/categories", require("./router/category"));
 app.use("/api/sub-categories", require("./router/sub-category"));
