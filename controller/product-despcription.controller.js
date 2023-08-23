@@ -1,7 +1,7 @@
 const { pool } = require("../config/db");
 
 async function createProductDescription(req, res) {
-  console.log(req.file);
+  // console.log(req.file);
   const { descriptions, product_id } = req.body;
   try {
     let rows = [];
