@@ -1,13 +1,18 @@
 const { pool } = require("../config/db");
 
 async function createProductApplication(req, res) {
-  const { application, product_id } = req.body;
+  const { applications, product_id } = req.body;
   try {
-    const { rows } = await pool.query(
-      `INSERT INTO product_applications (application, product_id) VALUES ($1, $2) returning *`,
-      [application, product_id]
-    );
-    res.json(rows[0]);
+    let rows = [];
+    for (const record of applications) {
+      const application = await pool.query(
+        `INSERT INTO product_applications (application, product_id) VALUES ($1, $2) returning *`,
+        [record, product_id]
+      );
+      rows.push(application.rows[0]);
+    }
+
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

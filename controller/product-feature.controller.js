@@ -12,7 +12,7 @@ async function createProductFeature(req, res) {
       rows.push(feature.rows[0]);
     }
 
-    res.json(rows[0]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
