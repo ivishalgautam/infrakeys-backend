@@ -82,3 +82,9 @@ CREATE TABLE product_used_by(
     icon TEXT NOT NULL,
     product_id INT NOT NULL REFERENCES products(id)
 );
+
+CREATE TABLE industries(
+    id SERIAL NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    image TEXT NOT NULL,
+)

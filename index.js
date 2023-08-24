@@ -23,6 +23,7 @@ app.use("/api/product-used-by", require("./router/product-used-by"));
 app.use("/api/banners", require("./router/banner"));
 app.use("/api/categories", require("./router/category"));
 app.use("/api/sub-categories", require("./router/sub-category"));
+app.use("/api/industries", require("./router/industries"));
 
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
