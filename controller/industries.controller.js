@@ -3,15 +3,15 @@ const path = require("path");
 const fs = require("fs");
 
 async function createIndustry(req, res) {
-  const { title, product_id } = req.body;
+  const { title } = req.body;
   try {
     const files = {
       filename: req.file.originalname,
       path: `/${req.file.filename}`,
     };
     const { rows } = await pool.query(
-      `INSERT INTO industries (title, image, product_id) VALUES ($1, $2, $3) returning *`,
-      [title, files.path, product_id]
+      `INSERT INTO industries (title, image) VALUES ($1, $2) returning *`,
+      [title, files.path]
     );
     res.json(rows[0]);
   } catch (error) {
@@ -20,9 +20,8 @@ async function createIndustry(req, res) {
 }
 
 async function getIndustries(req, res) {
-  const productId = parseInt(req.params.productId);
   try {
-    const { rows } = await pool.query(`SELECT * FROM industries`, [productId]);
+    const { rows } = await pool.query(`SELECT * FROM industries`);
     res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -30,15 +29,15 @@ async function getIndustries(req, res) {
 }
 
 async function getIndustryById(req, res) {
-  const productUsedById = parseInt(req.params.productUsedById);
+  const industryId = parseInt(req.params.industryId);
   try {
     const { rowCount, rows } = await pool.query(
       `SELECT * FROM industries WHERE id = $1`,
-      [productUsedById]
+      [industryId]
     );
 
     if (rowCount === 0)
-      return res.status(404).json({ message: "Product used by not found!" });
+      return res.status(404).json({ message: "Industry not found!" });
 
     res.json(rows[0]);
   } catch (error) {
@@ -47,36 +46,32 @@ async function getIndustryById(req, res) {
 }
 
 async function deleteIndustryById(req, res) {
-  const productUsedById = parseInt(req.params.productUsedById);
+  const industryId = parseInt(req.params.industryId);
   try {
     const productUsedByExist = await pool.query(
       `SELECT * FROM industries WHERE id = $1`,
-      [productUsedById]
+      [industryId]
     );
 
     if (productUsedByExist.rowCount === 0)
-      return res.status(404).json({ message: "Product used by not found!" });
+      return res.status(404).json({ message: "Industry not found!" });
 
     const fileName = path.basename(productUsedByExist.rows[0].image);
-    const filePath = path.join(
-      __dirname,
-      "../assets/product-used-by",
-      fileName
-    );
+    const filePath = path.join(__dirname, "../assets/industries", fileName);
 
     await pool.query(`DELETE FROM industries WHERE id = $1 returning *`, [
-      productUsedById,
+      industryId,
     ]);
 
     fs.unlinkSync(filePath);
-    res.json({ message: "Product used by deleted successfully." });
+    res.json({ message: "Industry deleted successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 }
 
 async function updateIndustryById(req, res) {
-  const productUsedById = parseInt(req.params.productUsedById);
+  const industryId = parseInt(req.params.industryId);
   const { ...data } = req.body;
   const updateColumns = Object.keys(data)
     .map((column, key) => `${column} = $${key + 1}`)
@@ -87,10 +82,10 @@ async function updateIndustryById(req, res) {
       `UPDATE industries SET ${updateColumns} WHERE id = ${
         updateValues.length + 1
       } returning *`,
-      [...updateValues, productUsedById]
+      [...updateValues, industryId]
     );
     if (rowCount === 0) {
-      return res.status(404).json({ message: "Product used by not found!" });
+      return res.status(404).json({ message: "Industry not found!" });
     }
     res.json(rows[0]);
   } catch (error) {
