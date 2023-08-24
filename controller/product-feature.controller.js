@@ -1,12 +1,17 @@
 const { pool } = require("../config/db");
 
 async function createProductFeature(req, res) {
-  const { title, feature, product_id } = req.body;
+  const { title, features, product_id } = req.body;
   try {
-    const { rows } = await pool.query(
-      `INSERT INTO product_features (title, feature, product_id) VALUES ($1, $2, $3) returning *`,
-      [title, feature, product_id]
-    );
+    let rows = [];
+    for (const record of features) {
+      const feature = await pool.query(
+        `INSERT INTO product_features (title, feature, product_id) VALUES ($1, $2, $3) returning *`,
+        [record.title, record.feature, product_id]
+      );
+      rows.push(feature.rows[0]);
+    }
+
     res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
