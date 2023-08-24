@@ -1,7 +1,7 @@
 const { pool } = require("../config/db");
 
 async function createProductFeature(req, res) {
-  const { title, features, product_id } = req.body;
+  const { features, product_id } = req.body;
   try {
     let rows = [];
     for (const record of features) {
