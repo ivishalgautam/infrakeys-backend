@@ -46,6 +46,7 @@ async function getProductById(req, res) {
 }
 
 async function deleteProductById(req, res) {
+  // console.log(__dirname);
   const productId = parseInt(req.params.productId);
   try {
     const productExist = await pool.query(
@@ -56,16 +57,11 @@ async function deleteProductById(req, res) {
     if (productExist.rowCount === 0)
       return res.status(404).json({ message: "Product not found!" });
 
-    console.log(productExist.rows[0].images);
-
-    productExist.rows[0].images.forEach((imagePath) => {
-      const fileName = path.basename(imagePath);
-      const filePath = path.join("", "../assets/products", fileName);
-      fs.unlinkSync(filePath);
-    });
-
-    // const fileName = path.basename(productExist.rows[0].images);
-    // const filePath = path.join(__dirname, "../assets/products", fileName);
+    // productExist.rows[0].images.forEach((imagePath) => {
+    //   const fileName = path.basename(imagePath);
+    //   const filePath = path.join(__dirname, "../assets/products", fileName);
+    //   fs.unlinkSync(filePath);
+    // });
 
     await pool.query(`DELETE FROM products WHERE id = $1 returning *`, [
       bannerId,
