@@ -8,6 +8,7 @@ const {
 } = require("../controller/product-application.controller");
 
 // routes
+// k
 router.post("/", createProductApplication);
 router.put("/:productApplicationId", updateProductApplicationById);
 router.delete("/:productApplicationId", deleteProductApplicationById);
