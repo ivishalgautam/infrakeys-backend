@@ -1,3 +1,5 @@
+const { pool } = require("../config/db");
+
 async function viewProduct(req, res) {
   try {
     const { userId, productId } = req.body;
@@ -30,33 +32,58 @@ async function recentlyViewed(req, res) {
     const selectQuery = `
     SELECT
         vp.product_id,
-        p.product_name,
-        p.product_price,
-        p.product_description
+        p.title AS product_title,
+        p.about AS product_about,
+        p.images AS product_images,
+        sc.sub_category_name AS product_sub_category
     FROM
         viewed_products vp
     JOIN
         products p
     ON
         vp.product_id = p.id
+    JOIN
+        sub_categories sc
+    ON
+        p.sub_category_id = sc.id
     WHERE
         vp.user_id = $1
     ORDER BY
         vp.timestamp DESC
     LIMIT 5;
-  `;
+    `;
 
-    pool.query(selectQuery, [userId], (err, result) => {
-      if (err) {
-        console.error("Error retrieving recently viewed products:", err);
-        res
-          .status(500)
-          .json({ error: "Error retrieving recently viewed products" });
-      } else {
-        const recentlyViewedProducts = result.rows;
-        res.status(200).json({ recentlyViewedProducts });
-      }
-    });
+    const data = await pool.query(
+      `
+      SELECT
+      vp.id AS view_id,
+      u.fullname AS user_fullname,
+      u.email AS user_email,
+      p.title AS product_title,
+      p.about AS product_about,
+      p.images AS product_images,
+      vp.timestamp AS view_timestamp
+    FROM
+        viewed_products vp
+    JOIN
+        users u
+    ON
+        vp.user_id = u.id
+    JOIN
+        products p
+    ON
+        vp.product_id = p.id
+    JOIN
+        sub_categories sc
+    ON  
+        p.sub_category_id = sc.id
+    ORDER BY
+        vp.timestamp DESC
+    LIMIT 5;
+    `,
+      [userId]
+    );
+    res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

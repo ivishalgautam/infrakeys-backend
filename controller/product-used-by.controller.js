@@ -14,7 +14,7 @@ async function createProductUsedBy(req, res) {
       rows.push(productUsedBy.rows[0]);
     }
 
-    res.json(rows[0]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
