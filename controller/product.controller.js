@@ -60,7 +60,7 @@ async function deleteProductById(req, res) {
 
     productExist.rows[0].images.forEach((imagePath) => {
       const fileName = path.basename(imagePath);
-      const filePath = path.join("../assets/products", fileName);
+      const filePath = path.join("", "../assets/products", fileName);
       fs.unlinkSync(filePath);
     });
 
@@ -75,6 +75,7 @@ async function deleteProductById(req, res) {
 
     res.json({ message: "product deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
