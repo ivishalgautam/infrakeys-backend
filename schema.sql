@@ -53,7 +53,7 @@ CREATE TABLE products (
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     about TEXT NOT NULL,
-    image_url TEXT,
+    images TEXT [],
     sub_category_id int REFERENCES sub_categories(id)
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE product_applications(
 CREATE TABLE product_used_by(
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
-    icon TEXT NOT NULL,
+    image TEXT NOT NULL,
     product_id INT NOT NULL REFERENCES products(id)
 );
 
@@ -87,4 +87,11 @@ CREATE TABLE industries(
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     image TEXT NOT NULL
-)
+);
+
+CREATE TABLE viewed_products (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    timestamp TIMESTAMPTZ NOT NULL
+);
