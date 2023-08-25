@@ -67,8 +67,6 @@ async function deleteProductById(req, res) {
       productId,
     ]);
 
-    fs.unlinkSync(filePath);
-
     res.json({ message: "product deleted successfully." });
   } catch (error) {
     console.error(error);
