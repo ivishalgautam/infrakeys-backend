@@ -12,6 +12,6 @@ router.post("/", createProductApplication);
 router.put("/:productApplicationId", updateProductApplicationById);
 router.delete("/:productApplicationId", deleteProductApplicationById);
 router.get("/:productApplicationId", getProductApplicationById);
-router.get("/:productId", getProductApplications);
+router.get("/products/:productId", getProductApplications);
 
 module.exports = router;

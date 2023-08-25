@@ -12,6 +12,6 @@ router.post("/", createProductFeature);
 router.put("/:productFeatureId", updateProductFeatureById);
 router.delete("/:productFeatureId", deleteProductFeatureById);
 router.get("/:productFeatureId", getProductFeatureById);
-router.get("/:productId", getProductFeatures);
+router.get("/products/:productId", getProductFeatures);
 
 module.exports = router;

@@ -12,6 +12,6 @@ router.post("/", createProductDescription);
 router.put("/:productDescriptionId", updateProductDescriptionById);
 router.delete("/:productDescriptionId", deleteProductDescriptionById);
 router.get("/:productDescriptionId", getProductDescriptionById);
-router.get("/:productId", getProductDescriptions);
+router.get("/products/:productId", getProductDescriptions);
 
 module.exports = router;
