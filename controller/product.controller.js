@@ -60,7 +60,7 @@ async function deleteProductById(req, res) {
 
     productExist.rows[0].images.forEach((imagePath) => {
       const fileName = path.basename(imagePath);
-      const filePath = path.join(__dirname, "/assets/products", fileName);
+      const filePath = path.join("../assets/products", fileName);
       fs.unlinkSync(filePath);
     });
 
