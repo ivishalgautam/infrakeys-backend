@@ -3,16 +3,17 @@ const path = require("path");
 const fs = require("fs");
 
 async function createProductUsedBy(req, res) {
-  const { title, product_id } = req.body;
+  const { data, product_id } = req.body;
   try {
-    const files = {
-      filename: req.file.originalname,
-      path: `/${req.file.filename}`,
-    };
-    const { rows } = await pool.query(
-      `INSERT INTO product_used_by (title, icon, product_id) VALUES ($1, $2, $3) returning *`,
-      [title, files.path, product_id]
-    );
+    let rows = [];
+    for (const { title, image } of data) {
+      const productUsedBy = await pool.query(
+        `INSERT INTO product_used_by (title, image, product_id) VALUES ($1, $2, $3) returning *`,
+        [title, image, product_id]
+      );
+      rows.push(productUsedBy.rows[0]);
+    }
+
     res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
