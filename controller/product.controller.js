@@ -64,7 +64,7 @@ async function deleteProductById(req, res) {
     // });
 
     await pool.query(`DELETE FROM products WHERE id = $1 returning *`, [
-      bannerId,
+      productId,
     ]);
 
     fs.unlinkSync(filePath);
