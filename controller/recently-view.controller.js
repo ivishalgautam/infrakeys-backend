@@ -27,8 +27,24 @@ async function recentlyViewed(req, res) {
     const userId = req.params.userId;
 
     // Query the database to retrieve recently viewed products
-    const selectQuery =
-      "SELECT product_id, timestamp FROM viewed_products WHERE user_id = $1 ORDER BY timestamp DESC LIMIT 5";
+    const selectQuery = `
+    SELECT
+        vp.product_id,
+        p.product_name,
+        p.product_price,
+        p.product_description
+    FROM
+        viewed_products vp
+    JOIN
+        products p
+    ON
+        vp.product_id = p.id
+    WHERE
+        vp.user_id = $1
+    ORDER BY
+        vp.timestamp DESC
+    LIMIT 5;
+  `;
 
     pool.query(selectQuery, [userId], (err, result) => {
       if (err) {
