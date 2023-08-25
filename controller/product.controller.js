@@ -10,7 +10,7 @@ async function createProduct(req, res) {
     console.log(images_urls);
 
     const { rows } = await pool.query(
-      `INSERT INTO products (title, about, image_url, sub_category_id) VALUES ($1, $2, $3, $4) returning *`,
+      `INSERT INTO products (title, about, images, sub_category_id) VALUES ($1, $2, $3, $4) returning *`,
       [title, about, images_urls, sub_category_id]
     );
     res.json(rows[0]);
