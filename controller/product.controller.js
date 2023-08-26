@@ -21,7 +21,7 @@ async function createProduct(req, res) {
 
 async function getProducts(req, res) {
   try {
-    const { rows } = await pool.query(`SELECT * FROM products`);
+    const { rows } = await pool.query(`SELECT * FROM products;`);
     res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -75,23 +75,27 @@ async function deleteProductDescriptionById(req, res) {
 
 async function updateProductDescriptionById(req, res) {
   const productDescriptionId = parseInt(req.params.productDescriptionId);
-  const { ...data } = req.body;
-  const updateColumns = Object.keys(data)
-    .map((column, key) => `${column} = $${key + 1}`)
-    .join(", ");
-  const updateValues = Object.values(data);
+  const { data } = req.body;
+  // const updateColumns = Object.keys(data)
+  //   .map((column, key) => `${column} = $${key + 1}`)
+  //   .join(", ");
+  // const updateValues = Object.values(data);
   try {
-    const { rows, rowCount } = await pool.query(
-      `UPDATE product_descriptions SET ${updateColumns} WHERE id = ${
-        updateValues.length + 1
-      } returning *`,
-      [...updateValues, productDescriptionId]
-    );
+    let rows = [];
+    for (const { id, description } of data) {
+      const desc = await pool.query(
+        `UPDATE product_descriptions SET description = $1 WHERE id = $2 returning *`,
+        [description, id]
+      );
+      rows.push(desc.rows[0]);
+    }
+
     if (rowCount === 0) {
       return res
         .status(404)
         .json({ message: "Product description not found!" });
     }
+
     res.json(rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
