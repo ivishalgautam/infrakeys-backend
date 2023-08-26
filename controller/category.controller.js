@@ -23,7 +23,7 @@ async function deleteCategoryById(req, res) {
   const categoryId = parseInt(req.params.categoryId);
   try {
     const categoryExist = await pool.query(
-      `SELECT * FROM categories WHERE id = $1`,
+      `DELETE FROM categories WHERE id = $1`,
       [categoryId]
     );
 
