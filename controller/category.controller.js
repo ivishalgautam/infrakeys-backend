@@ -23,7 +23,7 @@ async function deleteCategoryById(req, res) {
   const categoryId = parseInt(req.params.categoryId);
   try {
     const categoryExist = await pool.query(
-      `DELETE FROM categories WHERE id = $1`,
+      `SELECT * FROM categories WHERE id = $1`,
       [categoryId]
     );
 
@@ -33,9 +33,10 @@ async function deleteCategoryById(req, res) {
     const fileName = path.basename(categoryExist.rows[0].image_url);
     const filePath = path.join(__dirname, "../assets/categories", fileName);
 
-    await pool.query(`DELETE FROM categories WHERE id = $1 returning *`, [
-      categoryId,
-    ]);
+    await pool.query(
+      `DELETE FROM categories WHERE id = $1 CASCADE returning *`,
+      [categoryId]
+    );
 
     fs.unlinkSync(filePath);
     res.json({ message: "Category deleted successfully." });
