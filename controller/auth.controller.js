@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const { pool } = require("../config/db");
 const jwtGenerator = require("../utils/jwtGenerator");
-const jwt = require("jsonwebtoken");
 
 async function register(req, res) {
   const { fullname, email, password, city, state } = req.body;
@@ -60,7 +59,7 @@ async function login(req, res) {
       },
     });
     // console.log(jwt.verify(jwtToken, process.env.JWT_SEC));
-    res.json({ access_token: jwtToken });
+    res.json({ user: rows[0], access_token: jwtToken });
   } catch (error) {
     res.status(500).json({ message: error });
   }
