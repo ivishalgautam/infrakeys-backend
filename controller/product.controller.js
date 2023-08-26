@@ -79,11 +79,17 @@ async function updateProductById(req, res) {
   const { title, about, images, sub_category_id } = req.body;
 
   const images_urls = req.files.map((file) => `/${file.filename}`);
-  console.log(images_urls, images);
+  console.log(images_urls, ...images.split(","));
   try {
     // const { rows, rowCount } = await pool.query(
     //   `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
-    //   [title, about, [...images_urls, ...images], sub_category_id, productId]
+    //   [
+    //     title,
+    //     about,
+    //     [...images_urls, ...images.split(",")],
+    //     sub_category_id,
+    //     productId,
+    //   ]
     // );
     // if (rowCount === 0) {
     //   return res.status(404).json({ message: "Product not found!" });
