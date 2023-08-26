@@ -7,7 +7,7 @@ async function viewProduct(req, res) {
 
     // Insert the view into the database
     const insertQuery =
-      "INSERT INTO viewed_products (user_id, product_id, timestamp) VALUES ($1, $2, $3)";
+      "INSERT INTO viewed_products (user_id, product_id, timestamp) VALUES ($1, $2, $3) returning *";
     const values = [userId, productId, timestamp];
 
     // Execute the SQL query to insert the view
@@ -16,7 +16,7 @@ async function viewProduct(req, res) {
         console.error("Error inserting view:", err);
         res.status(500).json({ message: "Error inserting view" });
       } else {
-        res.status(200).json({ message: "View recorded successfully" });
+        res.status(200).json({ message: result.rows });
       }
     });
   } catch (error) {
@@ -25,65 +25,20 @@ async function viewProduct(req, res) {
 }
 
 async function recentlyViewed(req, res) {
+  const userId = parseInt(req.params.userId);
+  console.log(userId);
+
   try {
-    const userId = req.params.userId;
-
-    // Query the database to retrieve recently viewed products
-    const selectQuery = `
-    SELECT
-        vp.product_id,
-        p.title AS product_title,
-        p.about AS product_about,
-        p.images AS product_images,
-        sc.sub_category_name AS product_sub_category
-    FROM
-        viewed_products vp
-    JOIN
-        products p
-    ON
-        vp.product_id = p.id
-    JOIN
-        sub_categories sc
-    ON
-        p.sub_category_id = sc.id
-    WHERE
-        vp.user_id = $1
-    ORDER BY
-        vp.timestamp DESC
-    LIMIT 5;
-    `;
-
-    const data = await pool.query(
-      `
-      SELECT
-      vp.id AS view_id,
-      u.fullname AS user_fullname,
-      u.email AS user_email,
-      p.title AS product_title,
-      p.about AS product_about,
-      p.images AS product_images,
-      vp.timestamp AS view_timestamp
-    FROM
-        viewed_products vp
-    JOIN
-        users u
-    ON
-        vp.user_id = u.id
-    JOIN
-        products p
-    ON
-        vp.product_id = p.id
-    JOIN
-        sub_categories sc
-    ON  
-        p.sub_category_id = sc.id
-    ORDER BY
-        vp.timestamp DESC
-    LIMIT 5;
-    `,
+    const { rows } = await pool.query(
+      `SELECT p.*
+      FROM viewed_products vp
+      JOIN products p ON vp.product_id = p.id
+      WHERE vp.user_id = $1
+      ORDER BY vp.timestamp DESC
+      LIMIT 10;`,
       [userId]
     );
-    res.json(data);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -4,7 +4,7 @@ const jwtGenerator = require("../utils/jwtGenerator");
 const jwt = require("jsonwebtoken");
 
 async function register(req, res) {
-  const { fullname, email, password, address, city, state, country } = req.body;
+  const { fullname, email, password, city, state } = req.body;
   try {
     const userExist = await pool.query(`SELECT * FROM users WHERE email = $1`, [
       email,
@@ -20,8 +20,8 @@ async function register(req, res) {
     // console.log(hashedPassword);
 
     const { rows, rowCount } = await pool.query(
-      `INSERT INTO users (fullname, email, password, address, city, state, country) VALUES($1, $2, $3, $4, $5, $6, $7) returning *`,
-      [fullname, email, hashedPassword, address, city, state, country]
+      `INSERT INTO users (fullname, email, password, city, state) VALUES($1, $2, $3, $4, $5) returning *`,
+      [fullname, email, hashedPassword, city, state]
     );
 
     const jwtToken = jwtGenerator({

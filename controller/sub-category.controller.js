@@ -48,10 +48,12 @@ async function deleteSubCategoryById(req, res) {
 async function updateSubCategoryById(req, res) {
   const subCategoryId = parseInt(req.params.subCategoryId);
   const { ...subCategoryData } = req.body;
+
   const updateColumns = Object.keys(subCategoryData)
     .map((column, key) => `${column} = $${key + 1}`)
     .join(", ");
   const updateValues = Object.values(subCategoryData);
+
   try {
     const { rows, rowCount } = await pool.query(
       `UPDATE sub_categories SET ${updateColumns} WHERE id = ${
@@ -87,7 +89,7 @@ async function getSubCategoryById(req, res) {
     if (rowCount === 0) {
       return res.status(404).json({ message: "sub category not found!" });
     }
-    res.json(rows[0]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

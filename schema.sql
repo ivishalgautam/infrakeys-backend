@@ -17,10 +17,8 @@ CREATE TABLE users(
     email VARCHAR(40) NOT NULL,
     password VARCHAR(100) NOT NULL,
     role user_roles DEFAULT 'user',
-    address VARCHAR(200),
     city VARCHAR(100),
     state VARCHAR(100),
-    country VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -90,6 +88,13 @@ CREATE TABLE industries(
 );
 
 CREATE TABLE viewed_products (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    timestamp TIMESTAMPTZ NOT NULL
+);
+
+CREATE TABLE product_queries (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
