@@ -34,7 +34,7 @@ async function deleteCategoryById(req, res) {
     const filePath = path.join(__dirname, "../assets/categories", fileName);
 
     await pool.query(
-      `DELETE FROM categories WHERE id = $1 CASCADE returning *`,
+      `DELETE FROM sub_categories WHERE category_id IN (SELECT id FROM categories WHERE sub_category_id = $1);`,
       [categoryId]
     );
 
