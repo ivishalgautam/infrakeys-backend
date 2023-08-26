@@ -28,7 +28,7 @@ async function deleteCategoryById(req, res) {
     );
 
     if (categoryExist.rowCount === 0)
-      return res.status(404).json({ message: "banner not found!" });
+      return res.status(404).json({ message: "Category not found!" });
 
     const fileName = path.basename(categoryExist.rows[0].image_url);
     const filePath = path.join(__dirname, "../assets/categories", fileName);
