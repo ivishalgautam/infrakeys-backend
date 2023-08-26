@@ -76,17 +76,14 @@ async function deleteProductById(req, res) {
 
 async function updateProductById(req, res) {
   const productId = parseInt(req.params.productId);
-  const { ...productData } = req.body;
-  const updateColumns = Object.keys(productData)
-    .map((column, key) => `${column} = $${key + 1}`)
-    .join(", ");
-  const updateValues = Object.values(productData);
+  const { title, about, images, sub_category_id } = req.body;
+
+  const images_urls = req.files.map((file) => `/${file.filename}`);
+  console.log(images_urls);
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE products SET ${updateColumns} WHERE id = ${
-        updateValues.length + 1
-      } returning *`,
-      [...updateValues, productId]
+      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
+      [title, about, [...images_urls, ...images], sub_category_id, productId]
     );
     if (rowCount === 0) {
       return res.status(404).json({ message: "Product not found!" });

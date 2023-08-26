@@ -29,7 +29,7 @@ const uploads = multer({ storage });
 
 // routes
 router.post("/", uploads.array("file", 5), createProduct);
-router.put("/:productId", updateProductById);
+router.put("/:productId", uploads.array("file", 5), updateProductById);
 router.delete("/:productId", deleteProductById);
 router.get("/:productId", getProductById);
 router.get("/", getProducts);
