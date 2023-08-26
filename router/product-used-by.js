@@ -29,8 +29,8 @@ const uploads = multer({ storage });
 
 // routes
 router.post("/", createProductUsedBy);
-router.put("/:productId", updateProductUsedById);
-router.delete("/:productId", deleteProductUsedById);
+router.put("/:productUsedById", updateProductUsedById);
+router.delete("/:productUsedById", deleteProductUsedById);
 router.get("/:productUsedById", getProductUsedById);
 router.get("/products/:productId", getProductUsedBys);
 
