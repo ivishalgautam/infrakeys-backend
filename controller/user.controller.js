@@ -5,6 +5,7 @@ async function getUsers(req, res) {
     const { rows } = await pool.query(`SELECT * FROM users`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
