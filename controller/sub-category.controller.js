@@ -35,7 +35,7 @@ async function deleteSubCategoryById(req, res) {
     const fileName = path.basename(subCategoryExist.rows[0].image_url);
     const filePath = path.join(__dirname, "../assets/sub-categories", fileName);
 
-    await pool.query(`DELETE FROM sub_categories WHERE id = $1 returning *`, [
+    await pool.query(`DELETE FROM sub_categories WHERE id = $1;`, [
       subCategoryId,
     ]);
 
