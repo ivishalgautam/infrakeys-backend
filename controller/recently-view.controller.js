@@ -16,7 +16,7 @@ async function viewProduct(req, res) {
         console.error("Error inserting view:", err);
         res.status(500).json({ message: "Error inserting view" });
       } else {
-        res.status(200).json({ message: result.rows });
+        res.status(200).json({ ...result.rows[0] });
       }
     });
   } catch (error) {
