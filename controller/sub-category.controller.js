@@ -32,14 +32,14 @@ async function deleteSubCategoryById(req, res) {
     if (subCategoryExist.rowCount === 0)
       return res.status(404).json({ message: "banner not found!" });
 
-    // const fileName = path.basename(subCategoryExist.rows[0].image_url);
-    // const filePath = path.join(__dirname, "../assets/sub-categories", fileName);
+    const fileName = path.basename(subCategoryExist.rows[0].image_url);
+    const filePath = path.join(__dirname, "../assets/sub-categories", fileName);
 
-    await pool.query(`DELETE FROM categories WHERE id = $1 returning *`, [
+    await pool.query(`DELETE FROM sub_categories WHERE id = $1 returning *`, [
       subCategoryId,
     ]);
 
-    // fs.unlinkSync(filePath);
+    fs.unlinkSync(filePath);
     res.json({ message: "Sub category deleted successfully." });
   } catch (error) {
     console.error(error);
