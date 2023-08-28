@@ -31,12 +31,12 @@ async function deleteCategoryById(req, res) {
     if (categoryExist.rowCount === 0)
       return res.status(404).json({ message: "Category not found!" });
 
-    const fileName = path.basename(categoryExist.rows[0].image_url);
-    const filePath = path.join(__dirname, "../assets/categories", fileName);
+    // const fileName = path.basename(categoryExist.rows[0].image_url);
+    // const filePath = path.join(__dirname, "../assets/categories", fileName);
 
     await pool.query(`DELETE FROM categories WHERE id = $1);`, [categoryId]);
 
-    fs.unlinkSync(filePath);
+    // fs.unlinkSync(filePath);
     res.json({ message: "Category deleted successfully." });
   } catch (error) {
     console.error(error);

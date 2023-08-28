@@ -30,7 +30,7 @@ async function deleteSubCategoryById(req, res) {
     );
 
     if (subCategoryExist.rowCount === 0)
-      return res.status(404).json({ message: "banner not found!" });
+      return res.status(404).json({ message: "Sub category not found!" });
 
     const fileName = path.basename(subCategoryExist.rows[0].image_url);
     const filePath = path.join(__dirname, "../assets/sub-categories", fileName);
