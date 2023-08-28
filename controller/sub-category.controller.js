@@ -75,7 +75,11 @@ async function updateSubCategoryById(req, res) {
 
 async function getSubCategories(req, res) {
   try {
-    const { rows, rowCount } = await pool.query(`SELECT * FROM sub_categories`);
+    const { rows } = await pool.query(`
+        SELECT sc.id, sc.name, sc.image_url, c.name AS category_name, c.id as category_id
+        FROM sub_categories AS sc
+        JOIN categories AS c ON sc.category_id = c.id
+    `);
     res.json(rows);
   } catch (error) {
     console.error(error);
