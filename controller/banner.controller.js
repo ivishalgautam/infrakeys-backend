@@ -27,7 +27,11 @@ async function createBanner(req, res) {
 
 async function getBanners(req, res) {
   try {
-    const { rows } = await pool.query(`SELECT * FROM banners`);
+    const { rows } = await pool.query(`
+        SELECT b.id, b.name AS name, b.banner_url, c.name AS category_name, c.id as category_id
+        FROM banners AS b
+        JOIN categories AS c ON b.category_id = c.id;
+      `);
     res.json(rows);
   } catch (error) {
     console.error(error);

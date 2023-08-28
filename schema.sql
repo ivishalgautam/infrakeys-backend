@@ -33,17 +33,17 @@ CREATE TABLE categories(
     image_url TEXT NOT NULL
 );
 
-CREATE TABLE banners (
-    id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    banner_url TEXT NOT NULL,
-    category_id INT REFERENCES categories(id) NOT NULL
-);
-
 CREATE TABLE sub_categories(
     id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     image_url TEXT NOT NULL,
+    category_id INT REFERENCES categories(id) NOT NULL
+);
+
+CREATE TABLE banners (
+    id SERIAL NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    banner_url TEXT NOT NULL,
     category_id INT REFERENCES categories(id) NOT NULL
 );
 
