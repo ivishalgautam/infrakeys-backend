@@ -23,6 +23,7 @@ async function getUserById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -49,6 +50,7 @@ async function updateUserById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -66,6 +68,7 @@ async function deleteUserById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

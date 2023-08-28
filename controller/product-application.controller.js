@@ -14,6 +14,7 @@ async function createProductApplication(req, res) {
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -27,6 +28,7 @@ async function getProductApplications(req, res) {
     );
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -46,6 +48,7 @@ async function getProductApplicationById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -65,6 +68,7 @@ async function deleteProductApplicationById(req, res) {
 
     res.json({ message: "Product application deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -90,6 +94,7 @@ async function updateProductApplicationById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

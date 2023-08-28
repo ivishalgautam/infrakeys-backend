@@ -15,6 +15,7 @@ async function createCategory(req, res) {
     );
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -38,6 +39,7 @@ async function deleteCategoryById(req, res) {
     fs.unlinkSync(filePath);
     res.json({ message: "Category deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -61,15 +63,17 @@ async function updateCategoryById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
 
 async function getCategories(req, res) {
   try {
-    const { rows, rowCount } = await pool.query(`SELECT * FROM categories`);
+    const { rows } = await pool.query(`SELECT * FROM categories`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -86,6 +90,7 @@ async function getCategoryById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

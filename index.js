@@ -18,6 +18,7 @@ app.use(express.static("assets/industries"));
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
 app.use("/api/products", require("./router/product"));
+app.use("/api/dashboard", require("./router/dashboard"));
 app.use("/api/product-applications", require("./router/product-application"));
 app.use("/api/product-descriptions", require("./router/product-description"));
 app.use("/api/product-features", require("./router/product-feature"));

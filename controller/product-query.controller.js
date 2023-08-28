@@ -16,6 +16,7 @@ async function createQuery(req, res) {
     );
     res.json({ message: "Your query has been sent successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -36,6 +37,7 @@ async function deleteQueryByUserId(req, res) {
     );
     res.json({ message: "Your query has been deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -45,6 +47,7 @@ async function getAllQueries(req, res) {
     const { rows } = await pool.query(`SELECT * FROM product_queries;`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -62,6 +65,7 @@ async function getUserQueries(req, res) {
     );
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

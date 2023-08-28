@@ -16,6 +16,7 @@ async function createProductUsedBy(req, res) {
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -29,6 +30,7 @@ async function getProductUsedBys(req, res) {
     );
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -46,6 +48,7 @@ async function getProductUsedById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -75,6 +78,7 @@ async function deleteProductUsedById(req, res) {
     // fs.unlinkSync(filePath);
     res.json({ message: "Product used by deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -98,6 +102,7 @@ async function updateProductUsedById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

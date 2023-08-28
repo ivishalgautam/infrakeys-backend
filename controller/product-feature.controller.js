@@ -14,6 +14,7 @@ async function createProductFeature(req, res) {
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -27,6 +28,7 @@ async function getProductFeatures(req, res) {
     );
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -44,6 +46,7 @@ async function getProductFeatureById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -61,6 +64,7 @@ async function deleteProductFeatureById(req, res) {
 
     res.json({ message: "Product feature deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -84,6 +88,7 @@ async function updateProductFeatureById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

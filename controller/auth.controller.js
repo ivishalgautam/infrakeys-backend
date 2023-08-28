@@ -31,6 +31,7 @@ async function register(req, res) {
 
     res.json({ access_token: jwtToken });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -61,6 +62,7 @@ async function login(req, res) {
     // console.log(jwt.verify(jwtToken, process.env.JWT_SEC));
     res.json({ user: rows[0], access_token: jwtToken });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error });
   }
 }

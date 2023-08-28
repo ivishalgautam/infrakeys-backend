@@ -16,6 +16,7 @@ async function createSubCategory(req, res) {
     );
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -41,6 +42,7 @@ async function deleteSubCategoryById(req, res) {
     fs.unlinkSync(filePath);
     res.json({ message: "Sub category deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -66,6 +68,7 @@ async function updateSubCategoryById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -75,6 +78,7 @@ async function getSubCategories(req, res) {
     const { rows, rowCount } = await pool.query(`SELECT * FROM sub_categories`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -91,6 +95,7 @@ async function getSubCategoryById(req, res) {
     }
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

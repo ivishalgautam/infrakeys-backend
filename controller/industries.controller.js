@@ -15,6 +15,7 @@ async function createIndustry(req, res) {
     );
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -24,6 +25,7 @@ async function getIndustries(req, res) {
     const { rows } = await pool.query(`SELECT * FROM industries`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -41,6 +43,7 @@ async function getIndustryById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -66,6 +69,7 @@ async function deleteIndustryById(req, res) {
     fs.unlinkSync(filePath);
     res.json({ message: "Industry deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -89,6 +93,7 @@ async function updateIndustryById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

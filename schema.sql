@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS infrakeys;
 
-CREATE TYPE infrakeys.user_roles as ENUM('admin', 'user');
+CREATE TYPE user_roles as ENUM('admin', 'user');
 
 CREATE
 OR REPLACE FUNCTION update_updated_at() RETURNS TRIGGER AS $ $ BEGIN NEW.updated_at = NOW();
@@ -27,17 +27,17 @@ CREATE TRIGGER trigger_update_updated_at BEFORE
 UPDATE
     ON users FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
+CREATE TABLE categories(
+    id SERIAL NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    image_url TEXT NOT NULL
+);
+
 CREATE TABLE banners (
     id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     banner_url TEXT NOT NULL,
     category_id INT REFERENCES categories(id) NOT NULL
-);
-
-CREATE TABLE categories(
-    id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    image_url TEXT NOT NULL
 );
 
 CREATE TABLE sub_categories(

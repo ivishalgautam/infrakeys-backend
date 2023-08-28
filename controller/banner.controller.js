@@ -20,6 +20,7 @@ async function createBanner(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -29,6 +30,7 @@ async function getBanners(req, res) {
     const { rows } = await pool.query(`SELECT * FROM banners`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -46,6 +48,7 @@ async function getBannerById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -71,6 +74,7 @@ async function deleteBannerById(req, res) {
     fs.unlinkSync(filePath);
     res.json({ message: "Banner deleted successfully." });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -94,6 +98,7 @@ async function updateBannerById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }

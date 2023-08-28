@@ -15,6 +15,7 @@ async function createProduct(req, res) {
     );
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -24,6 +25,7 @@ async function getProducts(req, res) {
     const { rows } = await pool.query(`SELECT * FROM products;`);
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -41,6 +43,7 @@ async function getProductById(req, res) {
 
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -70,6 +73,7 @@ async function deleteProductById(req, res) {
     res.json({ message: "product deleted successfully." });
   } catch (error) {
     console.error(error);
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -96,6 +100,7 @@ async function updateProductById(req, res) {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 }
