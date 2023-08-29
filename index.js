@@ -29,6 +29,7 @@ app.use("/api/categories", require("./router/category"));
 app.use("/api/sub-categories", require("./router/sub-category"));
 app.use("/api/industries", require("./router/industries"));
 app.use("/api", require("./router/recently-view"));
+app.use("/api/search", require("./router/search"));
 
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
