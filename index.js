@@ -6,7 +6,11 @@ const morgan = require("morgan");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://62.72.59.14/",
+  })
+);
 app.use(morgan("tiny"));
 
 app.use(express.static("assets/banners"));
@@ -35,6 +39,6 @@ app.get("/", (req, res) => {
   res.json({ message: "hello world" });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "127.0.0.1", () => {
   console.log(`Server up and running on localhost:${PORT}`);
 });

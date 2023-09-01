@@ -9,6 +9,12 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// Handle connection errors
+pool.on("error", (err) => {
+  console.error("PostgreSQL pool error:", err);
+  process.exit(-1); // Exit the application or handle the error gracefully
+});
+
 module.exports = { pool };
 
 // const pgp = require("pg-promise")();
