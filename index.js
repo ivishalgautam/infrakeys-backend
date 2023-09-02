@@ -6,32 +6,15 @@ const morgan = require("morgan");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "*",
-    methods: "GET,PUT,POST,DELETE", // Allowed HTTP methods
-    credentials: true, // Enable credentials (cookies, HTTP authentication)
-    optionsSuccessStatus: 204,
-  })
-);
-
-// app.use((req, res, next) => {
-// res.header("Access-Control-Allow-Origin : *");
-// res.header("Access-Control-Allow-Origin", "http://127.0.0.1:7000/");
-// res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-// res.header(
-//   "Access-Control-Allow-Headers",
-//   "Content-Type, Authorization,Access-Control-Allow-Origin"
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: "*",
+//     methods: "GET,PUT,POST,DELETE", // Allowed HTTP methods
+//     credentials: true, // Enable credentials (cookies, HTTP authentication)
+//     optionsSuccessStatus: 204,
+//   })
 // );
-
-// res.header("Content-Type: application/json");
-// res.header("Access-Control-Allow-Origin: *");
-// res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-// res.header(
-//   "Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods,Authorization"
-// );
-// next();
-// });
 
 app.use(morgan("tiny"));
 
