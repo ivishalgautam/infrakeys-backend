@@ -22,27 +22,6 @@ app.use(express.static("assets/sub-categories"));
 app.use(express.static("assets/products"));
 app.use(express.static("assets/industries"));
 
-// app.use(
-//   "/assets/banners",
-//   express.static(path.join(__dirname, "assets", "banners"))
-// );
-// app.use(
-//   "/assets/categories",
-//   express.static(path.join(__dirname, "assets", "categories"))
-// );
-// app.use(
-//   "/assets/sub-categories",
-//   express.static(path.join(__dirname, "assets", "sub-categories"))
-// );
-// app.use(
-//   "/assets/products",
-//   express.static(path.join(__dirname, "assets", "products"))
-// );
-// app.use(
-//   "/assets/industries",
-//   express.static(path.join(__dirname, "assets", "industries"))
-// );
-
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
 app.use("/api/products", require("./router/product"));

@@ -4,6 +4,8 @@ const fs = require("fs");
 
 async function createCategory(req, res) {
   const { name } = req.body;
+  console.log(req.file);
+  console.log(__dirname);
   try {
     const files = {
       filename: req.file.originalname,
