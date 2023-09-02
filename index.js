@@ -6,15 +6,13 @@ const morgan = require("morgan");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: "*",
-//     methods: "GET,PUT,POST,DELETE", // Allowed HTTP methods
-//     credentials: true, // Enable credentials (cookies, HTTP authentication)
-//     optionsSuccessStatus: 204,
-//   })
-// );
+const corsOptions = {
+  origin: "*", // Allow requests from any origin
+  methods: "GET,PUT,POST,DELETE",
+  credentials: true, // Enable credentials (e.g., cookies) for cross-origin requests
+  optionsSuccessStatus: 204, // Respond with a 204 status code for preflight requests
+};
+app.use(cors(corsOptions));
 
 app.use(morgan("tiny"));
 
