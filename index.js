@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 const corsOptions = {
-  origin: "http://localhost:7000", // Allow requests from any origin
+  origin: "*", // Allow requests from any origin
   methods: "GET,PUT,POST,DELETE",
   credentials: true, // Enable credentials (e.g., cookies) for cross-origin requests
   optionsSuccessStatus: 204, // Respond with a 204 status code for preflight requests
