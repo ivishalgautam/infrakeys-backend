@@ -4,8 +4,8 @@ const fs = require("fs");
 
 async function createCategory(req, res) {
   const { name } = req.body;
-  console.log(req.file);
-  console.log(__dirname);
+  // console.log(req.file);
+  // console.log(__dirname);
   try {
     const files = {
       filename: req.file.originalname,
@@ -13,7 +13,7 @@ async function createCategory(req, res) {
     };
     const { rows, rowCount } = await pool.query(
       `INSERT INTO categories (name, image_url) VALUES ($1, $2) returning *`,
-      [name, files.path]
+      [name, req.file.path]
     );
     res.json(rows[0]);
   } catch (error) {
