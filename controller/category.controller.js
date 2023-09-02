@@ -13,7 +13,7 @@ async function createCategory(req, res) {
     };
     const { rows, rowCount } = await pool.query(
       `INSERT INTO categories (name, image_url) VALUES ($1, $2) returning *`,
-      [name, `/assets/categories/${req.file.path}`]
+      [name, `/assets/categories/${files.path}`]
     );
     res.json(rows[0]);
   } catch (error) {
