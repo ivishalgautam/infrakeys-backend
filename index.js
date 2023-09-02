@@ -6,14 +6,14 @@ const morgan = require("morgan");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: "http://62.72.59.14/",
-//     methods: "GET,PUT,POST,DELETE", // Allowed HTTP methods
-//     credentials: true, // Enable credentials (cookies, HTTP authentication)
-//     optionsSuccessStatus: 204,
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://62.72.59.14/",
+    methods: "GET,PUT,POST,DELETE", // Allowed HTTP methods
+    credentials: true, // Enable credentials (cookies, HTTP authentication)
+    optionsSuccessStatus: 204,
+  })
+);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://62.72.59.14/");
