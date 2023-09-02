@@ -9,11 +9,11 @@ async function createCategory(req, res) {
   try {
     const files = {
       filename: req.file.originalname,
-      path: `/${req.file.filename}`,
+      path: `${req.file.filename}`,
     };
     const { rows, rowCount } = await pool.query(
       `INSERT INTO categories (name, image_url) VALUES ($1, $2) returning *`,
-      [name, req.file.path]
+      [name, `/assets/categories/${req.file.path}`]
     );
     res.json(rows[0]);
   } catch (error) {
