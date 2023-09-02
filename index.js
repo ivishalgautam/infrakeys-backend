@@ -16,11 +16,11 @@ app.use(cors(corsOptions));
 
 app.use(morgan("tiny"));
 
-app.use(express.static("assets/banners"));
-app.use(express.static("assets/categories"));
-app.use(express.static("assets/sub-categories"));
-app.use(express.static("assets/products"));
-app.use(express.static("assets/industries"));
+app.use(express.static("/assets/banners"));
+app.use(express.static("/assets/categories"));
+app.use(express.static("/assets/sub-categories"));
+app.use(express.static("/assets/products"));
+app.use(express.static("/assets/industries"));
 
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
