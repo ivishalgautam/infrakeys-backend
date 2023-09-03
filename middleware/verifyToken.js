@@ -24,7 +24,7 @@ function verifyTokenAndAuthorization(req, res, next) {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      return res.status(401).json({ message: "unauthorised!" });
+      return res.status(401).json({ message: "Unauthorised!" });
     }
   });
 }

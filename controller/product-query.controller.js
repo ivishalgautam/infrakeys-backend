@@ -42,16 +42,6 @@ async function deleteQueryByUserId(req, res) {
   }
 }
 
-async function getAllQueries(req, res) {
-  try {
-    const { rows } = await pool.query(`SELECT * FROM product_queries;`);
-    res.json(rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
-  }
-}
-
 async function getUserQueries(req, res) {
   const userId = parseInt(req.params.userId);
 
@@ -63,6 +53,16 @@ async function getUserQueries(req, res) {
             WHERE vp.user_id = $1;`,
       [userId]
     );
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+async function getAllQueries(req, res) {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM product_queries;`);
     res.json(rows);
   } catch (error) {
     console.error(error);
