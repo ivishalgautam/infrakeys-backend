@@ -3,6 +3,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+} = require("./middleware/verifyToken");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
@@ -13,14 +17,27 @@ const corsOptions = {
   optionsSuccessStatus: 204, // Respond with a 204 status code for preflight requests
 };
 app.use(cors(corsOptions));
-
 app.use(morgan("tiny"));
 
-// app.use(express.static("assets/banners"));
-// app.use(express.static("assets/categories"));
-// app.use(express.static("assets/sub-categories"));
-// app.use(express.static("assets/products"));
-// app.use(express.static("assets/industries"));
+app.use((req, res, next) => {
+  if (req.path === "/api/auth/login") {
+    next();
+  } else {
+    verifyToken(req, res, next);
+  }
+});
+
+app.use((req, res, next) => {
+  try {
+    if (req.method === "DELETE") {
+      verifyTokenAndAuthorization(req, res, next);
+    } else {
+      next();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));

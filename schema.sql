@@ -3,10 +3,13 @@ CREATE DATABASE IF NOT EXISTS infrakeys;
 CREATE TYPE user_roles as ENUM('admin', 'user');
 
 CREATE
-OR REPLACE FUNCTION update_updated_at() RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = NOW();
+OR REPLACE FUNCTION update_updated_at() RETURNS TRIGGER AS $ $ BEGIN NEW.updated_at = NOW();
+
 RETURN NEW;
+
 END;
-$$ LANGUAGE plpgsql;
+
+$ $ LANGUAGE plpgsql;
 
 CREATE TABLE users(
     id SERIAL NOT NULL PRIMARY KEY,
@@ -49,7 +52,7 @@ CREATE TABLE products (
     title TEXT NOT NULL,
     about TEXT NOT NULL,
     images TEXT [],
-    sub_category_id int REFERENCES sub_categories(id)
+    sub_category_id int REFERENCES sub_categories(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE product_descriptions(
