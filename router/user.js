@@ -5,13 +5,16 @@ const {
   deleteUserById,
   getUserById,
 } = require("../controller/user.controller");
-const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
+const {
+  verifyTokenAndAuthorization,
+  verifyToken,
+} = require("../middleware/verifyToken");
 
 // routes
 router.get("/", verifyTokenAndAuthorization, getUsers);
-router.put("/:userId", verifyTokenAndAuthorization, updateUserById);
+router.put("/:userId", verifyToken, updateUserById);
 router.delete("/:userId", verifyTokenAndAuthorization, deleteUserById);
-router.get("/:userId", getUserById);
+router.get("/:userId", verifyToken, getUserById);
 // router.get("/", getProducts);
 
 module.exports = router;
