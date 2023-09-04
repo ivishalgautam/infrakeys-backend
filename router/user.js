@@ -11,7 +11,7 @@ const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 router.get("/", verifyTokenAndAuthorization, getUsers);
 router.put("/:userId", verifyTokenAndAuthorization, updateUserById);
 router.delete("/:userId", verifyTokenAndAuthorization, deleteUserById);
-router.get("/:userId", verifyTokenAndAuthorization, getUserById);
+router.get("/:userId", getUserById);
 // router.get("/", getProducts);
 
 module.exports = router;
