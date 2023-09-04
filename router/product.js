@@ -8,6 +8,7 @@ const {
   getProductById,
   deleteProductById,
   updateProductById,
+  getRelatedProducts,
 } = require("../controller/product.controller");
 const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
@@ -45,5 +46,6 @@ router.delete("/:productId", verifyTokenAndAuthorization, deleteProductById);
 
 router.get("/:productId", getProductById);
 router.get("/", getProducts);
+router.get("/relates-products/:subCategoryId", getRelatedProducts);
 
 module.exports = router;

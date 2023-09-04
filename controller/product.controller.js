@@ -109,10 +109,25 @@ async function updateProductById(req, res) {
   }
 }
 
+async function getRelatedProducts(req, res) {
+  const subCategoryId = parseInt(req.params.subCategoryId);
+  try {
+    const { rows } = await pool.query(
+      `SELECT * FROM products WHERE subCategoryId = $1;`,
+      [subCategoryId]
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createProduct,
   getProducts,
   getProductById,
   deleteProductById,
   updateProductById,
+  getRelatedProducts,
 };
