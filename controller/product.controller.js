@@ -62,15 +62,13 @@ async function deleteProductById(req, res) {
     if (productExist.rowCount === 0)
       return res.status(404).json({ message: "Product not found!" });
 
-    // productExist.rows[0].images.forEach((imagePath) => {
-    //   const fileName = path.basename(imagePath);
-    //   const filePath = path.join(__dirname, "../assets/products", fileName);
-    //   fs.unlinkSync(filePath);
-    // });
+    productExist.rows[0].images.forEach((imagePath) => {
+      const fileName = path.basename(imagePath);
+      const filePath = path.join(__dirname, "../assets/products", fileName);
+      fs.unlinkSync(filePath);
+    });
 
-    await pool.query(`DELETE FROM products WHERE id = $1 returning *`, [
-      productId,
-    ]);
+    await pool.query(`DELETE FROM products WHERE id = $1;`, [productId]);
 
     res.json({ message: "product deleted successfully." });
   } catch (error) {
