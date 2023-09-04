@@ -2,6 +2,7 @@ const { pool } = require("../config/db");
 
 async function createQuery(req, res) {
   const { userId, productId } = req.body;
+  const timestamp = new Date();
   try {
     const userExist = await pool.query(`SELECT * FROM users WHERE id = $1`, [
       userId,
@@ -11,8 +12,8 @@ async function createQuery(req, res) {
       return res.status(401).json({ message: "Unauthorized!" });
 
     const query = await pool.query(
-      `INSERT INTO product_queries (user_id, product_id) VALUES ($1, $2)`,
-      [userId, productId]
+      `INSERT INTO product_queries (user_id, product_id, timestamp) VALUES ($1, $2)`,
+      [userId, productId, timestamp]
     );
     res.json({ message: "Your query has been sent successfully." });
   } catch (error) {
