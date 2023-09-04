@@ -46,6 +46,6 @@ router.delete("/:productId", verifyTokenAndAuthorization, deleteProductById);
 
 router.get("/:productId", getProductById);
 router.get("/", getProducts);
-router.get("/relates-products/:subCategoryId", getRelatedProducts);
+router.get("/related-products/:subCategoryId", getRelatedProducts);
 
 module.exports = router;
