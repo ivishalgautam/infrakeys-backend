@@ -16,4 +16,22 @@ async function getDashboardDetails(req, res) {
   }
 }
 
-module.exports = { getDashboardDetails };
+async function getUserDetails(req, res) {
+  try {
+    const resp = await pool.query(`
+    SELECT
+          u.*, p.*
+      FROM
+          product_queries AS pq
+      INNER JOIN
+          products AS p ON pq.product_id = p.id
+      INNER JOIN
+          users AS u ON pq.user_id = u.id;
+    `);
+    res.json(resp.rows);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+module.exports = { getDashboardDetails, getUserDetails };
