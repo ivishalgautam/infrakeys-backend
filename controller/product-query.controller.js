@@ -12,7 +12,7 @@ async function createQuery(req, res) {
       return res.status(401).json({ message: "Unauthorized!" });
 
     const query = await pool.query(
-      `INSERT INTO product_queries (user_id, product_id, timestamp) VALUES ($1, $2)`,
+      `INSERT INTO product_queries (user_id, product_id, timestamp) VALUES ($1, $2, $3)`,
       [userId, productId, timestamp]
     );
     res.json({ message: "Your query has been sent successfully." });
