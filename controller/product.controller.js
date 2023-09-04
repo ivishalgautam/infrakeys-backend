@@ -7,7 +7,7 @@ async function createProduct(req, res) {
   const { title, about, sub_category_id } = req.body;
   try {
     const images_urls = req.files.map(
-      (file) => `/assets/categories/products/${file.filename}`
+      (file) => `/assets/products/${file.filename}`
     );
     // console.log(images_urls);
 

@@ -8,7 +8,7 @@ async function createSubCategory(req, res) {
   try {
     const files = {
       filename: req.file.originalname,
-      path: `${req.file.filename}`,
+      path: `/assets/sub-categories${req.file.filename}`,
     };
     const { rows, rowCount } = await pool.query(
       `INSERT INTO sub_categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
@@ -33,7 +33,11 @@ async function deleteSubCategoryById(req, res) {
       return res.status(404).json({ message: "Sub category not found!" });
 
     const fileName = path.basename(subCategoryExist.rows[0].image_url);
-    const filePath = path.join(__dirname, "../assets/sub-categories", fileName);
+    const filePath = path.join(
+      __dirname,
+      "../assets/categories/sub-categories",
+      fileName
+    );
 
     await pool.query(`DELETE FROM sub_categories WHERE id = $1;`, [
       subCategoryId,

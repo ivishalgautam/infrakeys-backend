@@ -7,7 +7,7 @@ async function createIndustry(req, res) {
   try {
     const files = {
       filename: req.file.originalname,
-      path: `/${req.file.filename}`,
+      path: `/assets/industries/${req.file.filename}`,
     };
     const { rows } = await pool.query(
       `INSERT INTO industries (title, image) VALUES ($1, $2) returning *`,
@@ -60,7 +60,11 @@ async function deleteIndustryById(req, res) {
       return res.status(404).json({ message: "Industry not found!" });
 
     const fileName = path.basename(productUsedByExist.rows[0].image);
-    const filePath = path.join(__dirname, "../assets/industries", fileName);
+    const filePath = path.join(
+      __dirname,
+      "../assets/categories/industries",
+      fileName
+    );
 
     await pool.query(`DELETE FROM industries WHERE id = $1 returning *`, [
       industryId,

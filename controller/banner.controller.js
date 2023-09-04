@@ -69,7 +69,11 @@ async function deleteBannerById(req, res) {
       return res.status(404).json({ message: "banner not found!" });
 
     const fileName = path.basename(bannerExist.rows[0].banner_url);
-    const filePath = path.join(__dirname, "../assets/banners", fileName);
+    const filePath = path.join(
+      __dirname,
+      "../assets/categories/banners",
+      fileName
+    );
 
     await pool.query(`DELETE FROM banners WHERE id = $1 returning *`, [
       bannerId,
