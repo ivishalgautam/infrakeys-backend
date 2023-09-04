@@ -67,7 +67,7 @@ async function getAllQueries(req, res) {
       `SELECT
           pq.id AS query_id,
           p.title,
-          u.name as user_name,
+          u.fullname as user_name,
           pq.timestamp
       FROM
           product_queries AS pq
