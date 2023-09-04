@@ -66,7 +66,7 @@ async function getAllQueries(req, res) {
     const { rows } = await pool.query(
       `SELECT
           pq.id AS query_id,
-          p.title,
+          p.title as product_name,
           u.fullname as user_name,
           u.id as user_id,
           pq.timestamp
