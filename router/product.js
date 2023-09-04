@@ -13,7 +13,7 @@ const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    const folderPath = path.join(__dirname, "../assets/products");
+    const folderPath = path.join(__dirname, "../assets/categories/products");
     console.log(folderPath);
 
     // Create the folder if it doesn't exist

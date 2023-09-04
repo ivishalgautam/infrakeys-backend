@@ -7,7 +7,7 @@ async function createProduct(req, res) {
   const { title, about, sub_category_id } = req.body;
   try {
     const images_urls = req.files.map(
-      (file) => `/assets/products/${file.filename}`
+      (file) => `/assets/categories/products/${file.filename}`
     );
     // console.log(images_urls);
 
@@ -64,7 +64,11 @@ async function deleteProductById(req, res) {
 
     productExist.rows[0].images.forEach((imagePath) => {
       const fileName = path.basename(imagePath);
-      const filePath = path.join(__dirname, "../assets/products", fileName);
+      const filePath = path.join(
+        __dirname,
+        "../assets/categories/products",
+        fileName
+      );
       fs.unlinkSync(filePath);
     });
 
