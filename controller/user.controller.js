@@ -41,14 +41,14 @@ async function updateUserById(req, res) {
     const { rows, rowCount } = await pool.query(
       `UPDATE users SET ${updateColumns} WHERE id = $${
         updateValues.length + 1
-      }`,
+      } returning *`,
       [...updateValues, userId]
     );
 
     if (rowCount === 0)
       return res.status(404).json({ message: "User not found!" });
 
-    res.json(rows[0]);
+    res.json({ message: "Update successfully." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
