@@ -113,7 +113,7 @@ async function getRelatedProducts(req, res) {
   const subCategoryId = parseInt(req.params.subCategoryId);
   try {
     const { rows } = await pool.query(
-      `SELECT * FROM products WHERE subCategoryId = $1;`,
+      `SELECT * FROM products WHERE sub_category_id = $1;`,
       [subCategoryId]
     );
     res.json(rows);
