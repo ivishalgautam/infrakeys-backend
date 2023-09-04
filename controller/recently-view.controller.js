@@ -39,7 +39,20 @@ async function recentlyViewed(req, res) {
       LIMIT 10;`,
       [userId]
     );
-    res.json(rows);
+
+    const uniqueMap = new Map();
+    const result = [];
+
+    for (const obj of rows) {
+      // Serialize the object to a JSON string for comparison
+      const key = JSON.stringify(obj);
+
+      if (!uniqueMap.has(key)) {
+        uniqueMap.set(key, true);
+        result.push(JSON.parse(key));
+      }
+    }
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
