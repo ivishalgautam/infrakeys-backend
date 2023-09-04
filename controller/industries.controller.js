@@ -7,7 +7,7 @@ async function createIndustry(req, res) {
   try {
     const files = {
       filename: req.file.originalname,
-      path: `/assets/industries/${req.file.filename}`,
+      path: `/assets/categories/industries/${req.file.filename}`,
     };
     const { rows } = await pool.query(
       `INSERT INTO industries (title, image) VALUES ($1, $2) returning *`,

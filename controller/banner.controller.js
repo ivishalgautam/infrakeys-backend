@@ -10,7 +10,7 @@ async function createBanner(req, res) {
     // console.log(banners);
     const files = {
       filename: req.file.originalname,
-      path: `/assets/banners/${req.file.filename}`,
+      path: `/assets/categories/banners/${req.file.filename}`,
     };
 
     const { rows } = await pool.query(

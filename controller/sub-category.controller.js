@@ -8,11 +8,11 @@ async function createSubCategory(req, res) {
   try {
     const files = {
       filename: req.file.originalname,
-      path: `/assets/sub-categories${req.file.filename}`,
+      path: `/assets/categories/sub-categories/${req.file.filename}`,
     };
     const { rows, rowCount } = await pool.query(
       `INSERT INTO sub_categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
-      [name, `/assets/sub-categories/${files.path}`, parseInt(category_id)]
+      [name, files.path, parseInt(category_id)]
     );
     res.json(rows[0]);
   } catch (error) {
