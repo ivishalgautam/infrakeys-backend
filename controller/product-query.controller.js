@@ -63,7 +63,19 @@ async function getUserQueries(req, res) {
 
 async function getAllQueries(req, res) {
   try {
-    const { rows } = await pool.query(`SELECT * FROM product_queries;`);
+    const { rows } = await pool.query(
+      `SELECT
+          pq.id AS query_id,
+          p.product_name,
+          u.name as user_name,
+          pq.timestamp
+      FROM
+          product_queries AS pq
+      INNER JOIN
+          products AS p ON pq.product_id = p.id
+      INNER JOIN
+          users AS u ON pq.user_id = u.id;`
+    );
     res.json(rows);
   } catch (error) {
     console.error(error);
