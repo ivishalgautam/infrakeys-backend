@@ -16,6 +16,7 @@ CREATE TABLE users(
     fullname VARCHAR(100) NOT NULL,
     email VARCHAR(40) NOT NULL,
     password VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
     role user_roles DEFAULT 'user',
     city VARCHAR(100),
     state VARCHAR(100),
@@ -58,27 +59,27 @@ CREATE TABLE products (
 CREATE TABLE product_descriptions(
     id SERIAL NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
-    product_id INT NOT NULL REFERENCES products(id)
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE product_features(
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     feature TEXT NOT NULL,
-    product_id INT NOT NULL REFERENCES products(id)
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE product_applications(
     id SERIAL NOT NULL PRIMARY KEY,
     application TEXT NOT NULL,
-    product_id INT NOT NULL REFERENCES products(id)
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE product_used_by(
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     image TEXT NOT NULL,
-    product_id INT NOT NULL REFERENCES products(id)
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE industries(

@@ -3,7 +3,7 @@ const { pool } = require("../config/db");
 const jwtGenerator = require("../utils/jwtGenerator");
 
 async function register(req, res) {
-  const { fullname, email, password, city, state } = req.body;
+  const { fullname, email, phone, password, city, state } = req.body;
   try {
     const userExist = await pool.query(`SELECT * FROM users WHERE email = $1`, [
       email,
@@ -19,17 +19,18 @@ async function register(req, res) {
     // console.log(hashedPassword);
 
     const { rows, rowCount } = await pool.query(
-      `INSERT INTO users (fullname, email, password, city, state) VALUES($1, $2, $3, $4, $5) returning *`,
-      [fullname, email, hashedPassword, city, state]
+      `INSERT INTO users (fullname, email, phone, password, city, state) VALUES($1, $2, $3, $4, $5, $6) returning *`,
+      [fullname, email, phone, hashedPassword, city, state]
     );
 
     const jwtToken = jwtGenerator({
       id: rows[0].id,
       fullname: rows[0].fullname,
       email: rows[0].email,
+      phone: rows[0].phone,
     });
 
-    res.json({ access_token: jwtToken });
+    res.json({ user: rows[0], access_token: jwtToken });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
