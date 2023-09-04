@@ -12,8 +12,10 @@ async function createQuery(req, res) {
       return res.status(401).json({ message: "Unauthorized!" });
 
     const queryExist = await pool.query(`SELECT * FROM product_queries;`);
+
     for (const data of queryExist.rows) {
       if (data.user_id === userId && data.product_id === productId) {
+        console.log(data);
         return res.json({ message: "You already queried this product." });
       }
     }
