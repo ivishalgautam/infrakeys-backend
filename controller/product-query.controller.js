@@ -11,6 +11,13 @@ async function createQuery(req, res) {
     if (userExist.rowCount === 0)
       return res.status(401).json({ message: "Unauthorized!" });
 
+    const queryExist = await pool.query(`SELECT * FROM product_queries;`);
+    for (const data of queryExist.rows) {
+      if (data.user_id === userId && data.product_id === productId) {
+        return res.json({ message: "You already queried this product." });
+      }
+    }
+
     const query = await pool.query(
       `INSERT INTO product_queries (user_id, product_id, timestamp) VALUES ($1, $2, $3)`,
       [userId, productId, timestamp]

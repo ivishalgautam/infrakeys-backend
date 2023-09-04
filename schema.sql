@@ -45,7 +45,7 @@ CREATE TABLE banners (
     id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     banner_url TEXT NOT NULL,
-    category_id INT REFERENCES categories(id) NOT NULL
+    category_id INT REFERENCES categories(id) CASCADE ON DELETE NOT NULL
 );
 
 CREATE TABLE products (
