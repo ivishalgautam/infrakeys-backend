@@ -16,5 +16,6 @@ router.post("/", isLoggedIn, createQuery);
 // router.delete("/:userId", deleteQueryByUserId);
 router.get("/", verifyTokenAndAuthorization, getAllQueries);
 router.get("/:userId", isLoggedIn, getUserQueries);
+router.get("/admin/:userId", verifyTokenAndAuthorization, getUserQueries);
 
 module.exports = router;
