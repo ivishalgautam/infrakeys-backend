@@ -6,12 +6,21 @@ const {
   deleteProductApplicationById,
   updateProductApplicationById,
 } = require("../controller/product-application.controller");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 // routes
 // k
-router.post("/", createProductApplication);
-router.put("/:productApplicationId", updateProductApplicationById);
-router.delete("/:productApplicationId", deleteProductApplicationById);
+router.post("/", verifyTokenAndAuthorization, createProductApplication);
+router.put(
+  "/:productApplicationId",
+  verifyTokenAndAuthorization,
+  updateProductApplicationById
+);
+router.delete(
+  "/:productApplicationId",
+  verifyTokenAndAuthorization,
+  deleteProductApplicationById
+);
 router.get("/:productApplicationId", getProductApplicationById);
 router.get("/products/:productId", getProductApplications);
 

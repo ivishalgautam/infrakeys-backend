@@ -6,11 +6,20 @@ const {
   deleteProductDescriptionById,
   updateProductDescriptionById,
 } = require("../controller/product-despcription.controller");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 // routes
-router.post("/", createProductDescription);
-router.put("/:productDescriptionId", updateProductDescriptionById);
-router.delete("/:productDescriptionId", deleteProductDescriptionById);
+router.post("/", verifyTokenAndAuthorization, createProductDescription);
+router.put(
+  "/:productDescriptionId",
+  verifyTokenAndAuthorization,
+  updateProductDescriptionById
+);
+router.delete(
+  "/:productDescriptionId",
+  verifyTokenAndAuthorization,
+  deleteProductDescriptionById
+);
 router.get("/:productDescriptionId", getProductDescriptionById);
 router.get("/products/:productId", getProductDescriptions);
 

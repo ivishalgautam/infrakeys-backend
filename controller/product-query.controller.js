@@ -48,9 +48,9 @@ async function getUserQueries(req, res) {
   try {
     const { rows } = await pool.query(
       `SELECT p.*
-            FROM product_queries vp
-            JOIN products p ON vp.product_id = p.id
-            WHERE vp.user_id = $1;`,
+            FROM product_queries pq
+            JOIN products p ON pq.product_id = p.id
+            WHERE pq.user_id = $1;`,
       [userId]
     );
     res.json(rows);

@@ -9,6 +9,7 @@ const {
   deleteProductById,
   updateProductById,
 } = require("../controller/product.controller");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -28,9 +29,20 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 
 // routes
-router.post("/", uploads.array("file", 5), createProduct);
-router.put("/:productId", uploads.array("file", 5), updateProductById);
-router.delete("/:productId", deleteProductById);
+router.post(
+  "/",
+  verifyTokenAndAuthorization,
+  uploads.array("file", 5),
+  createProduct
+);
+router.put(
+  "/:productId",
+  verifyTokenAndAuthorization,
+  uploads.array("file", 5),
+  updateProductById
+);
+router.delete("/:productId", verifyTokenAndAuthorization, deleteProductById);
+
 router.get("/:productId", getProductById);
 router.get("/", getProducts);
 

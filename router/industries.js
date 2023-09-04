@@ -9,6 +9,7 @@ const {
   getIndustryById,
   getIndustries,
 } = require("../controller/industries.controller");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -28,9 +29,14 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 
 // routes
-router.post("/", uploads.single("file"), createIndustry);
-router.put("/:industryId", updateIndustryById);
-router.delete("/:industryId", deleteIndustryById);
+router.post(
+  "/",
+  verifyTokenAndAuthorization,
+  uploads.single("file"),
+  createIndustry
+);
+router.put("/:industryId", verifyTokenAndAuthorization, updateIndustryById);
+router.delete("/:industryId", verifyTokenAndAuthorization, deleteIndustryById);
 router.get("/:industryId", getIndustryById);
 router.get("/", getIndustries);
 

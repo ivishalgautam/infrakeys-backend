@@ -9,6 +9,7 @@ const {
   getCategoryById,
   getCategories,
 } = require("../controller/category.controller");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -28,9 +29,14 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 
 // routes
-router.post("/", uploads.single("file"), createCategory);
-router.put("/:categoryId", updateCategoryById);
-router.delete("/:categoryId", deleteCategoryById);
+router.post(
+  "/",
+  verifyTokenAndAuthorization,
+  uploads.single("file"),
+  createCategory
+);
+router.put("/:categoryId", verifyTokenAndAuthorization, updateCategoryById);
+router.delete("/:categoryId", verifyTokenAndAuthorization, deleteCategoryById);
 router.get("/:categoryId", getCategoryById);
 router.get("/", getCategories);
 

@@ -4,13 +4,17 @@ const {
   getAllQueries,
   getUserQueries,
 } = require("../controller/product-query.controller");
+const {
+  isLoggedIn,
+  verifyTokenAndAuthorization,
+} = require("../middleware/verifyToken");
 
 const router = require("express").Router();
 
 // routes
-router.post("/", createQuery);
+router.post("/", isLoggedIn, createQuery);
 // router.delete("/:userId", deleteQueryByUserId);
-router.get("/", getAllQueries);
-router.get("/:userId", getUserQueries);
+router.get("/", verifyTokenAndAuthorization, getAllQueries);
+router.get("/:userId", isLoggedIn, getUserQueries);
 
 module.exports = router;

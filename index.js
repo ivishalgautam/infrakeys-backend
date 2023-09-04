@@ -19,26 +19,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(morgan("tiny"));
 
-app.use((req, res, next) => {
-  if (req.path === "/api/auth/login") {
-    next();
-  } else {
-    verifyToken(req, res, next);
-  }
-});
-
-app.use((req, res, next) => {
-  try {
-    if (req.method === "DELETE") {
-      verifyTokenAndAuthorization(req, res, next);
-    } else {
-      next();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
 app.use("/api/products", require("./router/product"));
