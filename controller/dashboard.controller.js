@@ -17,8 +17,10 @@ async function getDashboardDetails(req, res) {
 }
 
 async function getUserDetails(req, res) {
+  const userId = parseInt(req.params.userId);
   try {
-    const resp = await pool.query(`
+    const resp = await pool.query(
+      `
     SELECT
           u.*, p.*
       FROM
@@ -26,8 +28,11 @@ async function getUserDetails(req, res) {
       INNER JOIN
           products AS p ON pq.product_id = p.id
       INNER JOIN
-          users AS u ON pq.user_id = u.id;
-    `);
+          users AS u ON pq.user_id = u.id
+      WHERE u.id = $1;
+    `,
+      [userId]
+    );
     res.json(resp.rows);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -7,6 +7,10 @@ const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 const router = require("express").Router();
 
 router.get("/details", verifyTokenAndAuthorization, getDashboardDetails);
-router.get("/user-details", verifyTokenAndAuthorization, getUserDetails);
+router.get(
+  "/user-details/:userId",
+  verifyTokenAndAuthorization,
+  getUserDetails
+);
 
 module.exports = router;
