@@ -25,7 +25,8 @@ async function createProduct(req, res) {
 async function getProducts(req, res) {
   try {
     const { rows } = await pool.query(
-      `SELECT p.*, sc.name and sub_category_name FROM products p JOIN sub_categories sc on p.sub_category_id = sc.id;`
+      `SELECT p.*, sc.name as sub_category_name FROM products p JOIN sub_categories sc ON p.sub_category_id = sc.id;`
+      // `SELECT * FROM products;`
     );
     res.json(rows);
   } catch (error) {
