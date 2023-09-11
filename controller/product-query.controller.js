@@ -11,6 +11,9 @@ async function createQuery(req, res) {
     if (userExist.rowCount === 0)
       return res.status(401).json({ message: "Unauthorized!" });
 
+    if (!userExist.rows[0].verified)
+      return res.json({ message: "Please verify your account!" });
+
     const queryExist = await pool.query(`SELECT * FROM product_queries;`);
 
     for (const data of queryExist.rows) {
