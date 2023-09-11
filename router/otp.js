@@ -6,7 +6,7 @@ const { generateRandomOTP } = require("../utils/otp");
 router.get("/", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
-
+  console.log(name, phone);
   try {
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
