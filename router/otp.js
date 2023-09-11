@@ -1,8 +1,6 @@
-const { default: axios } = require("axios");
-// const { sendOtp } = require("../controller/otp.controller");
-const { generateRandomOTP } = require("../utils/otp");
-
 const router = require("express").Router();
+const { default: axios } = require("axios");
+const { generateRandomOTP } = require("../utils/otp");
 
 router.get("/", (req, res) => {
   const { phone, name } = req.body;

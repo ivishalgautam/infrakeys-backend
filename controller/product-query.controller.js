@@ -13,7 +13,7 @@ async function createQuery(req, res) {
 
     if (!userExist.rows[0].verified)
       return res.json({ message: "Please verify your account!" });
-
+    console.log(userExist.rows, userExist.rows[0].verified);
     const queryExist = await pool.query(`SELECT * FROM product_queries;`);
 
     for (const data of queryExist.rows) {
