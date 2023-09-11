@@ -7,6 +7,7 @@ router.get("/", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
   console.log(name, phone);
+  console.log(process.env.INTERACT_API_KEY);
   try {
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
