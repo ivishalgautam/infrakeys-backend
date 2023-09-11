@@ -16,7 +16,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(morgan("tiny"));
-
+console.log(process.env);
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
 app.use("/api/products", require("./router/product"));
