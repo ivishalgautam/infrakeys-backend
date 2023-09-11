@@ -1,4 +1,3 @@
-require("dotenv").config();
 const router = require("express").Router();
 const { default: axios } = require("axios");
 const { generateRandomOTP } = require("../utils/otp");
@@ -6,8 +5,6 @@ const { generateRandomOTP } = require("../utils/otp");
 router.get("/", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
-  console.log(name, phone);
-  console.log(process.env.INTERACT_API_KEY);
   try {
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
