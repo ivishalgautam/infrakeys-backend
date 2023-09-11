@@ -1,3 +1,4 @@
+require("dotenv").config();
 const router = require("express").Router();
 const { default: axios } = require("axios");
 const { generateRandomOTP } = require("../utils/otp");
