@@ -31,7 +31,7 @@ async function register(req, res) {
         .json({ message: "User already exist with this phone!" });
 
     const userOtp = await pool.query(
-      `SELECT otp from user_otps WHERE phone = $1`,
+      `SELECT otp from user_otps WHERE phone = $1 ORDER BY created_at DESC LIMIT 1`,
       [phone]
     );
 

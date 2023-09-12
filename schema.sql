@@ -104,5 +104,6 @@ CREATE TABLE product_queries (
 
 CREATE TABLE user_otps(
     phone VARCHAR(40) NOT NULL,
-    otp VARCHAR(10) NOT NULL
+    otp VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
