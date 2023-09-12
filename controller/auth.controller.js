@@ -4,9 +4,10 @@ const jwtGenerator = require("../utils/jwtGenerator");
 
 async function register(req, res) {
   const { fullname, email, phone, password, city, state, otp } = req.body;
-  const storedOTP = req.cookies.otp;
-  console.log(req.cookies);
-  console.log("user otp", otp, "stored otp", storedOTP);
+  // const storedOTP = req.cookies.otp;
+  // console.log(req.cookies);
+  // console.log("user otp", otp, "stored otp", storedOTP);
+
   let phoneVerified = false;
   try {
     const emailExist = await pool.query(
@@ -29,12 +30,16 @@ async function register(req, res) {
         .status(400)
         .json({ message: "User already exist with this phone!" });
 
-    if (storedOTP === otp) phoneVerified = true;
+    const userOtp = await pool.query(
+      `SELECT otp from user_otps WHERE phone = $1`,
+      [phone]
+    );
+
+    if (userOtp.rows[0].otp === otp) phoneVerified = true;
+    console.log("phone verified", phoneVerified);
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    console.log("phone verified", phoneVerified);
 
     const { rows, rowCount } = await pool.query(
       `INSERT INTO users (fullname, email, phone, password, city, state, verified) VALUES($1, $2, $3, $4, $5, $6, $7) returning *`,

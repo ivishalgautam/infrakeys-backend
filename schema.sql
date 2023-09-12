@@ -101,3 +101,8 @@ CREATE TABLE product_queries (
     product_id INT NOT NULL,
     timestamp TIMESTAMPTZ NOT NULL
 );
+
+CREATE TABLE user_otps(
+    phone VARCHAR(40) NOT NULL,
+    otp VARCHAR(10) NOT NULL
+)

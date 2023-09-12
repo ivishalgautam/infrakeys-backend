@@ -8,6 +8,10 @@ router.post("/send-otp", async (req, res) => {
   const otp = generateRandomOTP();
   console.log(req.body);
   try {
+    await pool.query(`INSERT INTO user_otps (phone, otp) VALUES ($1, $2);`, [
+      phone,
+      otp,
+    ]);
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
       method: "post",
@@ -29,6 +33,7 @@ router.post("/send-otp", async (req, res) => {
         },
       }),
     };
+
     axios(config)
       .then(function (response) {
         res.json(response.data);
