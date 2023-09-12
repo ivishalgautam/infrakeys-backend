@@ -4,7 +4,7 @@ const jwtGenerator = require("../utils/jwtGenerator");
 
 async function register(req, res) {
   const { fullname, email, phone, password, city, state, otp } = req.body;
-  const storedOTP = req.cookies.otp;
+  const storedOTP = res.cookies.otp;
   console.log("user otp", otp, "stored otp", storedOTP);
   console.log(storedOTP);
   let phoneVerified = false;
