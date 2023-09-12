@@ -4,7 +4,7 @@ const { generateRandomOTP } = require("../utils/otp");
 const { pool } = require("../config/db");
 
 router.post("/send-otp", async (req, res) => {
-  const { phone, name } = req.body;
+  const { phone } = req.body;
   const otp = generateRandomOTP();
   console.log(req.body);
   try {
@@ -50,7 +50,7 @@ router.post("/send-otp", async (req, res) => {
 
 router.post("/verify-otp", async (req, res) => {
   const { userId, otp } = req.body;
-  const storedOtp = req.cookies.otp;
+  let phoneVerified = false;
   try {
     const user = await pool.query(`SELECT * FROM users WHERE id = $1`, [
       userId,
@@ -58,7 +58,13 @@ router.post("/verify-otp", async (req, res) => {
     if (user.rowCount === 0)
       return res.status(404).json({ message: "User not exist!" });
 
-    if (storedOtp === otp) {
+    const userOtp = await pool.query(
+      `SELECT otp from user_otps WHERE phone = $1 ORDER BY created_at DESC LIMIT 1`,
+      [user.rows[0].phone]
+    );
+
+    if (userOtp.rows[0].otp === otp) {
+      phoneVerified = true;
       await pool.query(`UPDATE users SET verified = $1 WHERE id = $2`, [
         true,
         userId,
