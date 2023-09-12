@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 const corsOptions = {
   origin: "*", // Allow requests from any origin
   methods: "GET,PUT,POST,DELETE",
@@ -16,6 +15,8 @@ const corsOptions = {
   optionsSuccessStatus: 204, // Respond with a 204 status code for preflight requests
 };
 app.use(cors(corsOptions));
+app.use(cookieParser());
+
 app.use(morgan("tiny"));
 app.use("/api/auth", require("./router/auth"));
 app.use("/api/users", require("./router/user"));
