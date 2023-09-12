@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
   origin: "*", // Allow requests from any origin
@@ -15,7 +16,6 @@ const corsOptions = {
   optionsSuccessStatus: 204, // Respond with a 204 status code for preflight requests
 };
 app.use(cors(corsOptions));
-app.use(cookieParser());
 
 app.use(morgan("tiny"));
 app.use("/api/auth", require("./router/auth"));
