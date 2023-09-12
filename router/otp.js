@@ -8,6 +8,15 @@ router.post("/send-otp", async (req, res) => {
   const otp = generateRandomOTP();
   console.log(req.body);
   try {
+    const otpExist = await pool.query(
+      `SELECT * FROM user_otps WHERE phone = $1`,
+      [phone]
+    );
+
+    if (otpExist.rowCount > 0) {
+      await pool.query(`DELETE FROM user_otps WHERE phone = $1`, [phone]);
+    }
+
     await pool.query(`INSERT INTO user_otps (phone, otp) VALUES ($1, $2);`, [
       phone,
       otp,
