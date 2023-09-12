@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
   origin: "*", // Allow requests from any origin
@@ -31,7 +32,7 @@ app.use("/api/sub-categories", require("./router/sub-category"));
 app.use("/api/industries", require("./router/industries"));
 app.use("/api", require("./router/recently-view"));
 app.use("/api/search", require("./router/search"));
-app.use("/api/send-otp", require("./router/otp"));
+app.use("/api", require("./router/otp"));
 
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });

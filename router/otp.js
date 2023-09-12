@@ -2,10 +2,10 @@ const router = require("express").Router();
 const { default: axios } = require("axios");
 const { generateRandomOTP } = require("../utils/otp");
 
-router.get("/", (req, res) => {
+router.get("/send-otp", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
-  console.log(phone, name);
+  console.log(req.body);
   try {
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
@@ -18,13 +18,13 @@ router.get("/", (req, res) => {
       },
       data: JSON.stringify({
         countryCode: "+91",
-        phoneNumber: phone,
+        phoneNumber: req.body.phone,
         callbackData: "Otp sent successfully.",
         type: "Template",
         template: {
           name: "send_otp",
           languageCode: "en",
-          bodyValues: [name, "OTP", otp],
+          bodyValues: [req.body.name, "OTP", otp],
         },
       }),
     };
