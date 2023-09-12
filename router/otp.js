@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { default: axios } = require("axios");
 const { generateRandomOTP } = require("../utils/otp");
 
-router.get("/send-otp", (req, res) => {
+router.post("/send-otp", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
   console.log(req.body);
