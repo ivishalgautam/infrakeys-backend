@@ -5,6 +5,7 @@ const { generateRandomOTP } = require("../utils/otp");
 router.get("/", (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
+  console.log(phone, name);
   try {
     res.cookie("otp", otp, { maxAge: 300000 });
     let config = {
@@ -33,7 +34,7 @@ router.get("/", (req, res) => {
       })
       .catch((error) => {
         res.status(400).json(error);
-        console.log(error);
+        // console.log(error);
       });
   } catch (error) {
     console.log(error);
