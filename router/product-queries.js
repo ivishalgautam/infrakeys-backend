@@ -14,7 +14,7 @@ const router = require("express").Router();
 // routes
 router.post("/", isLoggedIn, createQuery);
 // router.delete("/:userId", deleteQueryByUserId);
-router.get("/", verifyTokenAndAuthorization, getAllQueries);
+router.get("/", getAllQueries);
 router.get("/:userId", isLoggedIn, getUserQueries);
 router.get("/admin/:userId", verifyTokenAndAuthorization, getUserQueries);
 
