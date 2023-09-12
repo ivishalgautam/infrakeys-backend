@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const { default: axios } = require("axios");
 const { generateRandomOTP } = require("../utils/otp");
+const { pool } = require("../config/db");
 
-router.post("/send-otp", (req, res) => {
+router.post("/send-otp", async (req, res) => {
   const { phone, name } = req.body;
   const otp = generateRandomOTP();
   console.log(req.body);
@@ -39,6 +40,29 @@ router.post("/send-otp", (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/verify-otp", async (req, res) => {
+  const { userId, otp } = req.body;
+  const storedOtp = req.cookies.otp;
+  try {
+    const user = await pool.query(`SELECT * FROM users WHERE id = $1`, [
+      userId,
+    ]);
+    if (user.rowCount === 0)
+      return res.status(404).json({ message: "User not exist!" });
+
+    if (storedOtp === otp) {
+      await pool.query(`UPDATE users SET verified = $1 WHERE id = $2`, [
+        true,
+        userId,
+      ]);
+      return res.json({ message: "OTP verified successfully" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status.json({ message: error.message });
   }
 });
 
