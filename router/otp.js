@@ -4,19 +4,10 @@ const { generateRandomOTP } = require("../utils/otp");
 const { pool } = require("../config/db");
 
 router.post("/send-otp", async (req, res) => {
-  const { phone } = req.body;
+  const { phone, name } = req.body;
   const otp = generateRandomOTP();
   console.log(req.body);
   try {
-    // const otpExist = await pool.query(
-    //   `SELECT * FROM user_otps WHERE phone = $1`,
-    //   [phone]
-    // );
-
-    // if (otpExist.rowCount > 0) {
-    //   await pool.query(`DELETE FROM user_otps WHERE phone = $1`, [phone]);
-    // }
-
     await pool.query(`INSERT INTO user_otps (phone, otp) VALUES ($1, $2);`, [
       phone,
       otp,
@@ -32,13 +23,13 @@ router.post("/send-otp", async (req, res) => {
       },
       data: JSON.stringify({
         countryCode: "+91",
-        phoneNumber: req.body.phone,
+        phoneNumber: phone,
         callbackData: "Otp sent successfully.",
         type: "Template",
         template: {
           name: "send_otp",
           languageCode: "en",
-          bodyValues: [req.body.name, "OTP", otp],
+          bodyValues: [name, "OTP", otp],
         },
       }),
     };
