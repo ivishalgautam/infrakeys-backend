@@ -5,6 +5,7 @@ const jwtGenerator = require("../utils/jwtGenerator");
 async function register(req, res) {
   const { fullname, email, phone, password, city, state, otp } = req.body;
   const storedOTP = req.cookies.otp;
+  console.log("user otp", otp, "stored otp", storedOTP);
   console.log(storedOTP);
   let phoneVerified = false;
   try {
@@ -32,6 +33,8 @@ async function register(req, res) {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+
+    console.log("phone verified", phoneVerified);
 
     const { rows, rowCount } = await pool.query(
       `INSERT INTO users (fullname, email, phone, password, city, state, verified) VALUES($1, $2, $3, $4, $5, $6, $7) returning *`,
