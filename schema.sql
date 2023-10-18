@@ -53,7 +53,8 @@ CREATE TABLE products (
     title TEXT NOT NULL,
     about TEXT NOT NULL,
     images TEXT [],
-    sub_category_id int REFERENCES sub_categories(id) ON DELETE CASCADE NOT NULL
+    sub_category_id int REFERENCES sub_categories(id) ON DELETE CASCADE NOT NULL,
+    keywords TEXT
 );
 
 CREATE TABLE product_descriptions(
