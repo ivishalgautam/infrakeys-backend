@@ -51,10 +51,6 @@ async function deleteById(req, res) {
 
 module.exports = {
   create,
-  update,
-  getById,
   get,
   deleteById,
-  updateBlogImage,
-  deleteBlogImage,
 };
