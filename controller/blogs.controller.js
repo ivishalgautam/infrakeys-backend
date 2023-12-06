@@ -3,6 +3,7 @@ const fs = require("fs");
 
 async function create(req, res) {
   const { title, content, summary, tags, category } = req.body;
+  console.log({ body: req.body });
   if (!title)
     return res.status(400).json({ message: "Please put some title." });
 
@@ -17,7 +18,7 @@ async function create(req, res) {
   try {
     const { rows } = await pool.query(
       `INSERT INTO blogs (title, image, content, summary, tags, category) VALUES ($1, $2, $3, $4, $5, $6) returning *`,
-      [title, image, content, summary, JSON.stringify(tags), category]
+      [title, image, content, summary, tags, category]
     );
     res.send(rows[0]);
   } catch (error) {
