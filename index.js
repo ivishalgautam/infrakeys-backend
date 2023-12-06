@@ -34,6 +34,7 @@ app.use("/api/industries", require("./router/industries"));
 app.use("/api", require("./router/recently-view"));
 app.use("/api/search", require("./router/search"));
 app.use("/api/blogs", require("./router/blogs"));
+app.use("/api/blog-categories", require("./router/blogs-categories"));
 app.use("/api", require("./router/otp"));
 
 app.get("/", (req, res) => {

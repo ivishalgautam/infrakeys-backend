@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const controller = require("../controller/blogs.controller");
-const CategoryController = require("../controller/blog-category.controller");
 
 const multer = require("multer");
 const path = require("path");
@@ -29,10 +28,5 @@ router.get("/:blogId", controller.getById);
 router.put("/:blogId", controller.update);
 router.put("/update-image/:blogId", controller.updateBlogImage);
 router.delete("/delete-image/:blogId", controller.deleteBlogImage);
-
-// blog categories
-router.post("/category", CategoryController.create);
-router.get("/category", CategoryController.get);
-router.delete("/category/:id", CategoryController.deleteById);
 
 module.exports = router;
