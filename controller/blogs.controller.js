@@ -166,12 +166,28 @@ async function deleteById(req, res) {
   const blogId = parseInt(req.params.blogId);
 
   try {
-    const { rowCount } = await pool.query(`DELETE FROM blogs WHERE id = $1`, [
-      blogId,
-    ]);
+    const { record, rowCount } = await pool.query(
+      `DELETE FROM blogs WHERE id = $1 returning *`,
+      [blogId]
+    );
 
     if (rowCount === 0) {
       return res.status(404).json({ message: "blog not found!" });
+    }
+
+    const file =
+      record.rows[0]?.image !== null && record.rows[0]?.image !== ""
+        ? path.join(__dirname, "../", record.rows[0]?.image)
+        : "";
+
+    if (fs.existsSync(file)) {
+      fs.unlink(file, async (err) => {
+        if (err) {
+          console.log(`error deleting file: ${file}`);
+        } else {
+          console.log("image deleted");
+        }
+      });
     }
 
     res.json({ message: "blog deleted" });
