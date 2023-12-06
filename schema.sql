@@ -57,6 +57,19 @@ CREATE TABLE products (
     keywords TEXT
 );
 
+CREATE TABLE blogs (
+    id SERIAL NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    image TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMPcreated_at
+);
+
+CREATE TRIGGER trigger_update_updated_at BEFORE
+UPDATE
+    ON blogs FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
 CREATE TABLE product_descriptions(
     id SERIAL NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
