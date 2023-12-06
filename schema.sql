@@ -73,6 +73,11 @@ CREATE TRIGGER trigger_update_updated_at BEFORE
 UPDATE
     ON blogs FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
+CREATE TABLE blogs_category (
+    id SERIAL NOT NULL PRIMARY KEY,
+    category TEXT NOT NULL,
+);
+
 CREATE TABLE product_descriptions(
     id SERIAL NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
