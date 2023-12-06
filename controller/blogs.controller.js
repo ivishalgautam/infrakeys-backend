@@ -159,7 +159,7 @@ async function get(req, res) {
               b.*,
               b.category 
             FROM blogs b 
-            LEFT JOIN blogs_category bc ON bc.id = b.category;`);
+            LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`);
 
     res.json(rows);
   } catch (error) {
