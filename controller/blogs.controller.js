@@ -23,7 +23,7 @@ async function create(req, res) {
     res.send(rows[0]);
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -51,7 +51,7 @@ async function update(req, res) {
     res.send(rows[0]);
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -90,7 +90,7 @@ async function updateBlogImage(req, res) {
     res.send(rows[0]);
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -127,7 +127,7 @@ async function deleteBlogImage(req, res) {
     }
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -147,7 +147,7 @@ async function getById(req, res) {
     res.json(rows[0]);
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -158,7 +158,7 @@ async function get(req, res) {
     res.json(rows);
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -177,7 +177,7 @@ async function deleteById(req, res) {
     res.json({ message: "blog deleted" });
   } catch (error) {
     console.error(error);
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 }
 

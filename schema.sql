@@ -76,6 +76,7 @@ UPDATE
 CREATE TABLE blogs_category (
     id SERIAL NOT NULL PRIMARY KEY,
     category TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE product_descriptions(
