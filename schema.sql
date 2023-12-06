@@ -63,6 +63,8 @@ CREATE TABLE blogs (
     content TEXT NOT NULL,
     image TEXT,
     summary TEXT,
+    tags JSONB DEFAULT '[]',
+    category VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
