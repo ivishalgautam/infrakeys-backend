@@ -17,7 +17,7 @@ async function create(req, res) {
   try {
     const { rows } = await pool.query(
       `INSERT INTO blogs (title, image, content, summary, tags, category) VALUES ($1, $2, $3, $4, $5, $6) returning *`,
-      [title, image, content, summary, tags, category]
+      [title, image, content, summary, JSON.stringify(tags), category]
     );
     res.send(rows[0]);
   } catch (error) {
