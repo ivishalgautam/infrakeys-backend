@@ -154,7 +154,12 @@ async function getById(req, res) {
 
 async function get(req, res) {
   try {
-    const { rows } = await pool.query(`SELECT * FROM blogs;`);
+    const { rows } = await pool.query(`
+          SELECT 
+              b.*,
+              b.category 
+            FROM blogs b 
+            LEFT JOIN blogs_category bc ON bc.id = b.category;`);
 
     res.json(rows);
   } catch (error) {
