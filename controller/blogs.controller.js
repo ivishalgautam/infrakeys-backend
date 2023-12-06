@@ -157,7 +157,7 @@ async function get(req, res) {
     const { rows } = await pool.query(`
           SELECT 
               b.*,
-              b.category 
+              bc.category 
             FROM blogs b 
             LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`);
 
