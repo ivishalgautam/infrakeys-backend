@@ -166,12 +166,12 @@ async function deleteById(req, res) {
   const blogId = parseInt(req.params.blogId);
 
   try {
-    const { record, rowCount } = await pool.query(
+    const record = await pool.query(
       `DELETE FROM blogs WHERE id = $1 returning *`,
       [blogId]
     );
 
-    if (rowCount === 0) {
+    if (record.rowCount === 0) {
       return res.status(404).json({ message: "blog not found!" });
     }
 
