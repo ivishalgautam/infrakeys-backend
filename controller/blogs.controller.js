@@ -27,7 +27,7 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-  const blogId = parseInt(req.body.blogId);
+  const blogId = parseInt(req.params.blogId);
   const { ...data } = req.body;
 
   const updateColumns = Object.keys(data)
@@ -55,7 +55,7 @@ async function update(req, res) {
 }
 
 async function updateBlogImage(req, res) {
-  const blogId = parseInt(req.body.blogId);
+  const blogId = parseInt(req.paramss.blogId);
   let image = `/assets/categories/products/${req.file.filename}`;
 
   try {
@@ -94,7 +94,7 @@ async function updateBlogImage(req, res) {
 }
 
 async function deleteBlogImage(req, res) {
-  const blogId = parseInt(req.body.blogId);
+  const blogId = parseInt(req.params.blogId);
 
   try {
     const record = await pool.query(`SELECT * FROM blogs WHERE id = $1;`, [
@@ -131,7 +131,7 @@ async function deleteBlogImage(req, res) {
 }
 
 async function getById(req, res) {
-  const blogId = parseInt(req.body.blogId);
+  const blogId = parseInt(req.params.blogId);
 
   try {
     const { rows, rowCount } = await pool.query(
@@ -162,7 +162,7 @@ async function get(req, res) {
 }
 
 async function deleteById(req, res) {
-  const blogId = parseInt(req.body.blogId);
+  const blogId = parseInt(req.params.blogId);
 
   try {
     const { rowCount } = await pool.query(`DELETE FROM blogs WHERE id = $1`, [

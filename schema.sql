@@ -62,8 +62,9 @@ CREATE TABLE blogs (
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     image TEXT,
+    summary TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMPcreated_at
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TRIGGER trigger_update_updated_at BEFORE
