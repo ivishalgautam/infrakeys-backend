@@ -4,15 +4,16 @@ const fs = require("fs");
 
 async function createSubCategory(req, res) {
   const { name, category_id } = req.body;
-  console.log(req.body, req.file);
+  const slug = name.trim().toLowerCase().split(" ").join("-");
+  // console.log(req.body, req.file);
   try {
     const files = {
       filename: req.file.originalname,
       path: `/assets/categories/sub-categories/${req.file.filename}`,
     };
     const { rows, rowCount } = await pool.query(
-      `INSERT INTO sub_categories (name, image_url, category_id) VALUES ($1, $2, $3) returning *`,
-      [name, files.path, parseInt(category_id)]
+      `INSERT INTO sub_categories (name, image_url, category_id, slug) VALUES ($1, $2, $3, $4) returning *`,
+      [name, files.path, parseInt(category_id), slug]
     );
     res.json(rows[0]);
   } catch (error) {

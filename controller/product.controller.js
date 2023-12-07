@@ -3,8 +3,10 @@ const path = require("path");
 const fs = require("fs");
 
 async function createProduct(req, res) {
-  console.log(req.files);
+  // console.log(req.files);
   const { title, about, sub_category_id, keywords } = req.body;
+  const slug = title.trim().toLowerCase().split(" ").join("-");
+
   try {
     const images_urls = req.files.map(
       (file) => `/assets/categories/products/${file.filename}`
@@ -12,8 +14,8 @@ async function createProduct(req, res) {
     // console.log(images_urls);
 
     const { rows } = await pool.query(
-      `INSERT INTO products (title, about, images, sub_category_id, keywords) VALUES ($1, $2, $3, $4, $5) returning *`,
-      [title, about, images_urls, sub_category_id, keywords]
+      `INSERT INTO products (title, about, images, sub_category_id, keywords, slug) VALUES ($1, $2, $3, $4, $5, $6) returning *`,
+      [title, about, images_urls, sub_category_id, keywords, slug]
     );
     res.json(rows[0]);
   } catch (error) {
