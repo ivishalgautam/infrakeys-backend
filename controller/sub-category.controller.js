@@ -116,7 +116,7 @@ async function getSubCategoryById(req, res) {
 }
 
 async function getSubCategorySlug(req, res) {
-  const subCategorySlug = parseInt(req.params.slug);
+  const subCategorySlug = req.params.slug;
   try {
     const { rows, rowCount } = await pool.query(
       `SELECT * FROM sub_categories WHERE slug = $1`,
