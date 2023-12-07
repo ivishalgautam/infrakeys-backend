@@ -59,7 +59,8 @@ async function update(req, res) {
 }
 
 async function updateBlogImage(req, res) {
-  const blogId = parseInt(req.paramss.blogId);
+  console.log(req.file);
+  const blogId = parseInt(req.params.blogId);
   let image = `/assets/categories/products/${req.file.filename}`;
 
   try {
