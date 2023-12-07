@@ -116,15 +116,17 @@ async function getSubCategoryById(req, res) {
 }
 
 async function getSubCategorySlug(req, res) {
-  const subCategorySlug = req.params.slug;
+  const slug = req.params.slug;
+  console.log(slug);
   try {
     const { rows, rowCount } = await pool.query(
       `SELECT * FROM sub_categories WHERE slug = $1`,
-      [subCategorySlug]
+      [slug]
     );
     if (rowCount === 0) {
       return res.status(404).json({ message: "sub category not found!" });
     }
+    console.log({ rows });
     res.json(rows);
   } catch (error) {
     console.error(error);
