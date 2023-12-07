@@ -37,6 +37,7 @@ CREATE TABLE categories(
 CREATE TABLE sub_categories(
     id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    slug TEXT,
     image_url TEXT NOT NULL,
     category_id INT REFERENCES categories(id) ON DELETE CASCADE NOT NULL
 );
@@ -51,6 +52,7 @@ CREATE TABLE banners (
 CREATE TABLE products (
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
+    slug TEXT,
     about TEXT NOT NULL,
     images TEXT [],
     sub_category_id int REFERENCES sub_categories(id) ON DELETE CASCADE NOT NULL,
@@ -60,6 +62,7 @@ CREATE TABLE products (
 CREATE TABLE blogs (
     id SERIAL NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
+    slug TEXT,
     content TEXT NOT NULL,
     image TEXT,
     summary TEXT,

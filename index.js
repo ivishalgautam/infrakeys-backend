@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const { pool } = require("./config/db");
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
@@ -36,6 +37,38 @@ app.use("/api/search", require("./router/search"));
 app.use("/api/blogs", require("./router/blogs"));
 app.use("/api/blogs-categories", require("./router/blogs-categories"));
 app.use("/api", require("./router/otp"));
+
+app.get("/update-slug", async (req, res) => {
+  try {
+    const { rows: subCats } = await pool.query(`SELECT * FROM sub_categories;`);
+    const { rows: products } = await pool.query(`SELECT * FROM products;`);
+    const { rows: blogs } = await pool.query(`SELECT * FROM blogs;`);
+
+    for (const subCat of subCats) {
+      const slug = subCat.name.toLowerCase().split(" ").join("-");
+      await pool.query(`UPDATE sub_categories SET slug = $1 WHERE id = $2;`, [
+        slug.id,
+      ]);
+    }
+
+    for (const product of products) {
+      const slug = product.title.toLowerCase().split(" ").join("-");
+      await pool.query(`UPDATE products SET slug = $1 WHERE id = $2;`, [
+        slug.id,
+      ]);
+    }
+
+    for (const blog of blogs) {
+      const slug = blog.title.toLowerCase().split(" ").join("-");
+      await pool.query(`UPDATE blogs SET slug = $1 WHERE id = $2;`, [slug.id]);
+    }
+
+    res.json({ message: "slugs updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
