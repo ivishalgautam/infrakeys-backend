@@ -30,7 +30,7 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-  const blogId = parseInt(req.params.blogId);
+  const blogId = req.params.blogId;
   const { ...data } = req.body;
   console.log(data, blogId);
 
