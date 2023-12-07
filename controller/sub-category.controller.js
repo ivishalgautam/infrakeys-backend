@@ -84,7 +84,7 @@ async function getSubCategories(req, res) {
           sc.id, 
           sc.name, 
           sc.image_url, 
-          sc.slug
+          sc.slug,
           c.name AS category_name, 
           c.id as category_id
         FROM sub_categories AS sc
