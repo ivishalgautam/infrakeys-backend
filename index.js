@@ -64,8 +64,8 @@ app.use("/api/update-slug", async (req, res) => {
     }
 
     for (const blog of blogs) {
-      console.log({ blogSlug: slug });
       const slug = blog.title.trim().toLowerCase().split(" ").join("-");
+      console.log({ blogSlug: slug });
       await pool.query(`UPDATE blogs SET slug = $1 WHERE id = $2;`, [
         slug,
         slug.id,
