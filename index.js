@@ -51,7 +51,7 @@ app.use("/api/update-slug", async (req, res) => {
       await new Promise((resolve) => {
         pool.query(
           `UPDATE sub_categories SET slug = $1 WHERE id = $2 returning *;`,
-          [slug, slug.id],
+          [slug, subCat.id],
           (err, result) => {
             if (!err) {
               console.log("sub_categories slug updated");
@@ -69,7 +69,7 @@ app.use("/api/update-slug", async (req, res) => {
       await new Promise((resolve) => {
         pool.query(
           `UPDATE products SET slug = $1 WHERE id = $2 returning *;`,
-          [slug, slug.id],
+          [slug, product.id],
           (err, result) => {
             if (!err) {
               console.log("products slug updated");
@@ -87,7 +87,7 @@ app.use("/api/update-slug", async (req, res) => {
       await new Promise((resolve) => {
         pool.query(
           `UPDATE blogs SET slug = $1 WHERE id = $2 returning *;`,
-          [slug, slug.id],
+          [slug, blog.id],
           (err, result) => {
             if (!err) {
               console.log("blogs slug updated");
