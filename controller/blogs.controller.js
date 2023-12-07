@@ -41,7 +41,7 @@ async function update(req, res) {
 
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE blogs SET ${updateColumns} WHERE id = $${
+      `UPDATE blogs SET ${updateColumns} WHERE slug = $${
         updateValues.length + 1
       } returning *`,
       [...updateValues, blogId]
