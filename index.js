@@ -49,11 +49,12 @@ app.use("/api/update-slug", async (req, res) => {
       const slug = subCat.name.trim().toLowerCase().split(" ").join("-");
       console.log({ catSlug: slug });
       await pool.query(
-        `UPDATE sub_categories SET slug = $1 WHERE id = $2;`,
+        `UPDATE sub_categories SET slug = $1 WHERE id = $2 returning *;`,
         [slug, slug.id],
         (err, result) => {
           if (!err) {
             console.log("sub_categories slug updated");
+            console.log({ result });
           }
         }
       );
@@ -63,11 +64,12 @@ app.use("/api/update-slug", async (req, res) => {
       console.log({ productSlug: slug });
       const slug = product.title.trim().toLowerCase().split(" ").join("-");
       await pool.query(
-        `UPDATE products SET slug = $1 WHERE id = $2;`,
+        `UPDATE products SET slug = $1 WHERE id = $2 returning *;`,
         [slug, slug.id],
         (err, result) => {
           if (!err) {
             console.log("products slug updated");
+            console.log({ result });
           }
         }
       );
@@ -77,11 +79,12 @@ app.use("/api/update-slug", async (req, res) => {
       const slug = blog.title.trim().toLowerCase().split(" ").join("-");
       console.log({ blogSlug: slug });
       await pool.query(
-        `UPDATE blogs SET slug = $1 WHERE id = $2;`,
+        `UPDATE blogs SET slug = $1 WHERE id = $2 returning *;`,
         [slug, slug.id],
         (err, result) => {
           if (!err) {
             console.log("blogs slug updated");
+            console.log({ result });
           }
         }
       );
