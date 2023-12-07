@@ -27,7 +27,11 @@ router.get("/", controller.get);
 router.get("/:blogId", controller.getById);
 router.put("/:blogId", controller.update);
 router.delete("/:blogId", controller.deleteById);
-router.put("/update-image/:blogId", controller.updateBlogImage);
+router.put(
+  "/update-image/:blogId",
+  uploads.single("file"),
+  controller.updateBlogImage
+);
 router.delete("/delete-image/:blogId", controller.deleteBlogImage);
 
 module.exports = router;
