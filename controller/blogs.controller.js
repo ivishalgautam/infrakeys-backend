@@ -32,7 +32,7 @@ async function create(req, res) {
 async function update(req, res) {
   const blogId = parseInt(req.params.blogId);
   const { ...data } = req.body;
-  console.log(req.body);
+  console.log(data);
 
   const updateColumns = Object.keys(data)
     .map((column, key) => `${column} = $${key + 1}`)
