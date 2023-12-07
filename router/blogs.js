@@ -25,6 +25,7 @@ const uploads = multer({ storage });
 router.post("/", uploads.single("file"), controller.create);
 router.get("/", controller.get);
 router.get("/:blogId", controller.getById);
+router.get("/slug/:slug", controller.getBySlug);
 router.put("/:blogId", controller.update);
 router.delete("/:blogId", controller.deleteById);
 router.put(

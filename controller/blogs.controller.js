@@ -135,6 +135,26 @@ async function deleteBlogImage(req, res) {
   }
 }
 
+async function getBySlug(req, res) {
+  const slug = req.params.slug;
+
+  try {
+    const { rows, rowCount } = await pool.query(
+      `SELECT * FROM blogs WHERE slug = $1`,
+      [slug]
+    );
+
+    if (rowCount === 0) {
+      return res.status(404).json({ message: "blog not found!" });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 async function getById(req, res) {
   const blogId = parseInt(req.params.blogId);
 
@@ -214,4 +234,5 @@ module.exports = {
   deleteById,
   updateBlogImage,
   deleteBlogImage,
+  getBySlug,
 };
