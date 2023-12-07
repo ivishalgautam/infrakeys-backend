@@ -8,6 +8,7 @@ const {
   updateSubCategoryById,
   getSubCategories,
   getSubCategoryById,
+  getSubCategorySlug,
 } = require("../controller/sub-category.controller");
 
 const storage = multer.diskStorage({
@@ -35,6 +36,7 @@ router.post("/", uploads.single("file"), createSubCategory);
 router.put("/:subCategoryId", updateSubCategoryById);
 router.delete("/:subCategoryId", deleteSubCategoryById);
 router.get("/:subCategoryId", getSubCategoryById);
+router.get("/slug/:slug", getSubCategorySlug);
 router.get("/", getSubCategories);
 
 module.exports = router;

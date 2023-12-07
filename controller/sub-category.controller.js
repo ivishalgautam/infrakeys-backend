@@ -115,10 +115,28 @@ async function getSubCategoryById(req, res) {
   }
 }
 
+async function getSubCategorySlug(req, res) {
+  const subCategorySlug = parseInt(req.params.slug);
+  try {
+    const { rows, rowCount } = await pool.query(
+      `SELECT * FROM sub_categories WHERE slug = $1`,
+      [subCategorySlug]
+    );
+    if (rowCount === 0) {
+      return res.status(404).json({ message: "sub category not found!" });
+    }
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createSubCategory,
   deleteSubCategoryById,
   updateSubCategoryById,
   getSubCategories,
   getSubCategoryById,
+  getSubCategorySlug,
 };
