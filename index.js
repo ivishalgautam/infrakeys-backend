@@ -43,9 +43,11 @@ app.use("/api/update-slug", async (req, res) => {
     const { rows: subCats } = await pool.query(`SELECT * FROM sub_categories;`);
     const { rows: products } = await pool.query(`SELECT * FROM products;`);
     const { rows: blogs } = await pool.query(`SELECT * FROM blogs;`);
+    console.log({ subCats, products, blogs });
 
     for (const subCat of subCats) {
-      const slug = subCat.name.toLowerCase().split(" ").join("-");
+      const slug = subCat.name.trim().toLowerCase().split(" ").join("-");
+      console.log({ catSlug: slug });
       await pool.query(`UPDATE sub_categories SET slug = $1 WHERE id = $2;`, [
         slug,
         slug.id,
@@ -53,7 +55,8 @@ app.use("/api/update-slug", async (req, res) => {
     }
 
     for (const product of products) {
-      const slug = product.title.toLowerCase().split(" ").join("-");
+      console.log({ productSlug: slug });
+      const slug = product.title.trim().toLowerCase().split(" ").join("-");
       await pool.query(`UPDATE products SET slug = $1 WHERE id = $2;`, [
         slug,
         slug.id,
@@ -61,7 +64,8 @@ app.use("/api/update-slug", async (req, res) => {
     }
 
     for (const blog of blogs) {
-      const slug = blog.title.toLowerCase().split(" ").join("-");
+      console.log({ blogSlug: slug });
+      const slug = blog.title.trim().toLowerCase().split(" ").join("-");
       await pool.query(`UPDATE blogs SET slug = $1 WHERE id = $2;`, [
         slug,
         slug.id,
