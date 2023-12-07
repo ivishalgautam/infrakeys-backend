@@ -47,6 +47,7 @@ app.use("/api/update-slug", async (req, res) => {
     for (const subCat of subCats) {
       const slug = subCat.name.toLowerCase().split(" ").join("-");
       await pool.query(`UPDATE sub_categories SET slug = $1 WHERE id = $2;`, [
+        slug,
         slug.id,
       ]);
     }
@@ -54,13 +55,17 @@ app.use("/api/update-slug", async (req, res) => {
     for (const product of products) {
       const slug = product.title.toLowerCase().split(" ").join("-");
       await pool.query(`UPDATE products SET slug = $1 WHERE id = $2;`, [
+        slug,
         slug.id,
       ]);
     }
 
     for (const blog of blogs) {
       const slug = blog.title.toLowerCase().split(" ").join("-");
-      await pool.query(`UPDATE blogs SET slug = $1 WHERE id = $2;`, [slug.id]);
+      await pool.query(`UPDATE blogs SET slug = $1 WHERE id = $2;`, [
+        slug,
+        slug.id,
+      ]);
     }
 
     res.json({ message: "slugs updated" });
