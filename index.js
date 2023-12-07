@@ -38,7 +38,7 @@ app.use("/api/blogs", require("./router/blogs"));
 app.use("/api/blogs-categories", require("./router/blogs-categories"));
 app.use("/api", require("./router/otp"));
 
-app.get("/update-slug", async (req, res) => {
+app.use("/update-slug", async (req, res) => {
   try {
     const { rows: subCats } = await pool.query(`SELECT * FROM sub_categories;`);
     const { rows: products } = await pool.query(`SELECT * FROM products;`);
@@ -70,7 +70,7 @@ app.get("/update-slug", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   res.json({ message: "hello world" });
 });
 
