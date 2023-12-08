@@ -177,6 +177,7 @@ async function getById(req, res) {
 
 async function get(req, res) {
   const { limit } = req.query;
+  console.log({ limit });
 
   let query = `
             SELECT 
@@ -188,6 +189,8 @@ async function get(req, res) {
   if (limit) {
     query += `ORDER BY b.created_at DESC LIMIT ${limit}`;
   }
+
+  console.log(query);
 
   try {
     const { rows } = await pool.query(query);
