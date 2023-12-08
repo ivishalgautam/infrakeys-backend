@@ -175,15 +175,22 @@ async function getById(req, res) {
 }
 
 async function get(req, res) {
-  let query = `
-            SELECT 
-                b.*,
-                bc.category 
-              FROM blogs b 
-              LEFT JOIN blogs_category bc ON bc.id::integer = b.category::integer
-              ORDER BY b.created_at DESC;`;
   try {
-    const { rows } = await pool.query(query);
+    const { rows } = await pool.query(`
+    SELECT 
+        b.id,
+        b.title,
+        b.slug,
+        b.content,
+        b.image,
+        b.summary,
+        b.tags,
+        b.created_at,
+        b.updated_at,
+        bc.category 
+      FROM blogs b 
+      LEFT JOIN blogs_category bc ON bc.id::integer = b.category::integer
+      ORDER BY b.created_at DESC;`);
     res.json(rows);
   } catch (error) {
     console.error(error);
