@@ -147,7 +147,6 @@ async function getBySlug(req, res) {
     if (rowCount === 0) {
       return res.status(404).json({ message: "blog not found!" });
     }
-    console.log(rows[0]);
     res.json(rows[0]);
   } catch (error) {
     console.error(error);
@@ -176,22 +175,13 @@ async function getById(req, res) {
 }
 
 async function get(req, res) {
-  const { limit } = req.query;
-  console.log(req.query);
-  console.log({ limit });
-
   let query = `
             SELECT 
                 b.*,
                 bc.category 
               FROM blogs b 
-              LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`;
-
-  if (limit) {
-    query += `ORDER BY b.created_at DESC LIMIT ${limit}`;
-  }
-
-  console.log(query);
+              LEFT JOIN blogs_category bc ON bc.id = b.category::integer
+              ORDER BY created_at DESC;`;
 
   try {
     const { rows } = await pool.query(query);
