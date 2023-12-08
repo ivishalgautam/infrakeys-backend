@@ -49,7 +49,7 @@ function verifyTokenAndAuthorization(req, res, next) {
 function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
     console.log(req.user);
-    if (req.user.role === "admin") {
+    if (req.user.user.role === "admin") {
       next();
     } else {
       return res.status(401).json({ message: "Access denied not admin!" });
