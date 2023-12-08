@@ -185,7 +185,7 @@ async function get(req, res) {
               FROM blogs b 
               LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`;
 
-  if (recent) {
+  if (limit) {
     query += `ORDER BY b.created_at DESC LIMIT ${limit}`;
   }
 
