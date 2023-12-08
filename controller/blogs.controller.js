@@ -180,12 +180,10 @@ async function get(req, res) {
                 b.*,
                 bc.category 
               FROM blogs b 
-              LEFT JOIN blogs_category bc ON bc.id = b.category::integer
+              LEFT JOIN blogs_category bc ON bc.id::integer = b.category::integer
               ORDER BY created_at DESC;`;
-
   try {
     const { rows } = await pool.query(query);
-
     res.json(rows);
   } catch (error) {
     console.error(error);
