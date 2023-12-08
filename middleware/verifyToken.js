@@ -48,6 +48,7 @@ function verifyTokenAndAuthorization(req, res, next) {
 
 function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
+    console.log(req.user);
     if (req.user.role === "admin") {
       next();
     } else {
