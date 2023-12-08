@@ -189,8 +189,7 @@ async function get(req, res) {
         b.updated_at,
         bc.category 
       FROM blogs b 
-      LEFT JOIN blogs_category bc ON bc.id = b.category::integer
-      ORDER BY b.created_at DESC;`);
+      LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`);
     res.json(rows);
   } catch (error) {
     console.error(error);
