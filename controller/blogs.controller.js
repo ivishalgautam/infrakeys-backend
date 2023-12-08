@@ -176,13 +176,21 @@ async function getById(req, res) {
 }
 
 async function get(req, res) {
+  const { limit } = req.query;
+
+  let query = `
+            SELECT 
+                b.*,
+                bc.category 
+              FROM blogs b 
+              LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`;
+
+  if (recent) {
+    query += `ORDER BY b.created_at DESC LIMIT ${limit}`;
+  }
+
   try {
-    const { rows } = await pool.query(`
-          SELECT 
-              b.*,
-              bc.category 
-            FROM blogs b 
-            LEFT JOIN blogs_category bc ON bc.id = b.category::integer;`);
+    const { rows } = await pool.query(query);
 
     res.json(rows);
   } catch (error) {

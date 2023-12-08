@@ -4,6 +4,7 @@ const controller = require("../controller/blogs.controller");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { verifyTokenAndAdmin } = require("../middleware/verifyToken");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -27,7 +28,7 @@ router.get("/", controller.get);
 router.get("/:blogId", controller.getById);
 router.get("/slug/:slug", controller.getBySlug);
 router.put("/:blogId", controller.update);
-router.delete("/:blogId", controller.deleteById);
+router.delete("/:blogId", verifyTokenAndAdmin, controller.deleteById);
 router.put(
   "/update-image/:blogId",
   uploads.single("file"),
