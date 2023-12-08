@@ -181,7 +181,7 @@ async function get(req, res) {
                 bc.category 
               FROM blogs b 
               LEFT JOIN blogs_category bc ON bc.id::integer = b.category::integer
-              ORDER BY created_at DESC;`;
+              ORDER BY b.created_at DESC;`;
   try {
     const { rows } = await pool.query(query);
     res.json(rows);
