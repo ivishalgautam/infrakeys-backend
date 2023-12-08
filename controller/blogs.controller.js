@@ -177,6 +177,7 @@ async function getById(req, res) {
 
 async function get(req, res) {
   const { limit } = req.query;
+  console.log(req.query);
   console.log({ limit });
 
   let query = `
