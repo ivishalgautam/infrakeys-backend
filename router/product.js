@@ -9,6 +9,7 @@ const {
   deleteProductById,
   updateProductById,
   getRelatedProducts,
+  getProductBySlug,
 } = require("../controller/product.controller");
 const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 
@@ -45,6 +46,7 @@ router.put(
 router.delete("/:productId", verifyTokenAndAuthorization, deleteProductById);
 
 router.get("/:productId", getProductById);
+router.get("/slug/:slug", getProductBySlug);
 router.get("/", getProducts);
 router.get("/related-products/:subCategoryId", getRelatedProducts);
 

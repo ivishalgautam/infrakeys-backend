@@ -55,6 +55,24 @@ async function getProductById(req, res) {
   }
 }
 
+async function getProductBySlug(req, res) {
+  const slug = req.params.slug;
+  try {
+    const { rowCount, rows } = await pool.query(
+      `SELECT * FROM products WHERE slug = $1`,
+      [slug]
+    );
+
+    if (rowCount === 0)
+      return res.status(404).json({ message: "Product not found!" });
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 async function deleteProductById(req, res) {
   // console.log(__dirname);
   const productId = parseInt(req.params.productId);
@@ -92,7 +110,7 @@ async function updateProductById(req, res) {
   const { title, about, images, sub_category_id } = req.body;
 
   const images_urls = req.files.map((file) => `/${file.filename}`);
-  console.log(...images_urls, ...JSON.parse(images));
+  // console.log(...images_urls, ...JSON.parse(images));
   try {
     const { rows, rowCount } = await pool.query(
       `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
@@ -135,4 +153,5 @@ module.exports = {
   deleteProductById,
   updateProductById,
   getRelatedProducts,
+  getProductBySlug,
 };
