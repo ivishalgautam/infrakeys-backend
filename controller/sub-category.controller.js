@@ -126,8 +126,8 @@ async function getSubCategorySlug(req, res) {
     if (rowCount === 0) {
       return res.status(404).json({ message: "sub category not found!" });
     }
-    console.log({ rows });
-    res.json(rows);
+    // console.log({ rows });
+    res.json(rows[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
