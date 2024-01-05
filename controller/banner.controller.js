@@ -14,7 +14,7 @@ async function createBanner(req, res) {
     };
 
     const { rows } = await pool.query(
-      `INSERT INTO banners (name, banner_url, category_id) VALUES ($1, $2, $3) returning *`,
+      `INSERT INTO banners (name, banner_url, sub_category_id) VALUES ($1, $2, $3) returning *`,
       [name, files.path, category_id]
     );
 
