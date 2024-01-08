@@ -107,15 +107,22 @@ async function deleteProductById(req, res) {
 
 async function updateProductById(req, res) {
   const productId = parseInt(req.params.productId);
-  const { title, about, images, sub_category_id, meta_title, meta_desc } =
-    req.body;
+  const {
+    title,
+    about,
+    images,
+    sub_category_id,
+    meta_title,
+    meta_desc,
+    keywords,
+  } = req.body;
 
   const images_urls = req.files.map(
     (file) => `/assets/categories/products/${file.filename}`
   );
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4, meta_title = $5, meta_desc = $6 WHERE id = $7 returning *`,
+      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4, meta_title = $5, meta_desc = $6, keywords = $7 WHERE id = $8 returning *`,
       [
         title,
         about,
@@ -123,6 +130,7 @@ async function updateProductById(req, res) {
         sub_category_id,
         meta_title,
         meta_desc,
+        keywords,
         productId,
       ]
     );
