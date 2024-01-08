@@ -112,6 +112,7 @@ async function updateProductById(req, res) {
   const images_urls = req.files.map(
     (file) => `/assets/categories/products/${file.filename}`
   );
+  console.log({ images_urls });
   try {
     const { rows, rowCount } = await pool.query(
       `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
