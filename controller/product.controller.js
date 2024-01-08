@@ -109,7 +109,9 @@ async function updateProductById(req, res) {
   const productId = parseInt(req.params.productId);
   const { title, about, images, sub_category_id } = req.body;
 
-  const images_urls = req.files.map((file) => `/${file.filename}`);
+  const images_urls = req.files.map(
+    (file) => `/assets/categories/${file.filename}`
+  );
   console.log(...images_urls, ...JSON.parse(images));
   try {
     const { rows, rowCount } = await pool.query(
