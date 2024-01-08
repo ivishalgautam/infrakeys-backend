@@ -116,7 +116,7 @@ async function updateProductById(req, res) {
   try {
     const { rows, rowCount } = await pool.query(
       `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
-      [title, about, [...JSON.parse(images_urls)], sub_category_id, productId]
+      [title, about, [...images_urls], sub_category_id, productId]
     );
     if (rowCount === 0) {
       return res.status(404).json({ message: "Product not found!" });
