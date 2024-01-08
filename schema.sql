@@ -56,7 +56,9 @@ CREATE TABLE products (
     about TEXT NOT NULL,
     images TEXT [],
     sub_category_id int REFERENCES sub_categories(id) ON DELETE CASCADE NOT NULL,
-    keywords TEXT
+    keywords TEXT,
+    meta_title TEXT,
+    meta_desc TEXT
 );
 
 CREATE TABLE blogs (

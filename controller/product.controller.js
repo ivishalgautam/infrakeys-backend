@@ -107,16 +107,24 @@ async function deleteProductById(req, res) {
 
 async function updateProductById(req, res) {
   const productId = parseInt(req.params.productId);
-  const { title, about, images, sub_category_id } = req.body;
+  const { title, about, images, sub_category_id, meta_title, meta_desc } =
+    req.body;
 
   const images_urls = req.files.map(
     (file) => `/assets/categories/products/${file.filename}`
   );
-  console.log({ images_urls });
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4 WHERE id = $5 returning *`,
-      [title, about, [...images_urls], sub_category_id, productId]
+      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4, meta_title = $5, meta_desc = $6 WHERE id = $7 returning *`,
+      [
+        title,
+        about,
+        [...images_urls],
+        sub_category_id,
+        meta_title,
+        meta_desc,
+        productId,
+      ]
     );
     if (rowCount === 0) {
       return res.status(404).json({ message: "Product not found!" });
