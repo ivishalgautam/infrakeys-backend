@@ -110,30 +110,29 @@ async function updateProductById(req, res) {
   const {
     title,
     about,
-    images,
     sub_category_id,
     meta_title,
     meta_desc,
     keywords,
+    slug,
   } = req.body;
 
-  const slug = title.trim().toLowerCase().split(" ").join("-");
+  const updatedSlug = slug.trim().toLowerCase().split(" ").join("-");
 
-  const images_urls = req.files.map(
-    (file) => `/assets/categories/products/${file.filename}`
-  );
+  // const images_urls = req.files.map(
+  //   (file) => `/assets/categories/products/${file.filename}`
+  // );
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE products SET title = $1, about = $2, images = $3, sub_category_id = $4, meta_title = $5, meta_desc = $6, keywords = $7, slug = $8 WHERE id = $9 returning *`,
+      `UPDATE products SET title = $1, about = $2, sub_category_id = $3, meta_title = $4, meta_desc = $5, keywords = $6, slug = $7 WHERE id = $8 returning *`,
       [
         title,
         about,
-        [...images_urls],
         sub_category_id,
         meta_title,
         meta_desc,
         keywords,
-        slug,
+        updatedSlug,
         productId,
       ]
     );

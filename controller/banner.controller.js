@@ -30,7 +30,8 @@ async function getBanners(req, res) {
     const { rows } = await pool.query(`
         SELECT b.id, b.name, b.banner_url, sc.name AS category_name, sc.id as category_id, sc.slug
         FROM banners AS b
-        JOIN sub_categories AS sc ON b.sub_category_id = sc.id;
+        JOIN sub_categories AS sc ON b.sub_category_id = sc.id
+        ORDER BY ;
       `);
     res.json(rows);
   } catch (error) {
