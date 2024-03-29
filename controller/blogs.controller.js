@@ -33,7 +33,6 @@ async function update(req, res) {
   const blogId = req.params.blogId;
   const { ...data } = req.body;
   console.log(data, blogId);
-  let image = `/assets/categories/products/${req.file.filename}`;
 
   const updateColumns = Object.keys(data)
     .map((column, key) => `${column} = $${key + 1}`)
