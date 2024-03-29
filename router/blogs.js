@@ -27,9 +27,9 @@ router.post("/", uploads.single("file"), controller.create);
 router.get("/", controller.get);
 router.get("/:blogId", controller.getById);
 router.get("/slug/:slug", controller.getBySlug);
-router.post("/update/:blogId", controller.update);
+router.put("/:blogId", controller.update);
 router.delete("/:blogId", verifyTokenAndAdmin, controller.deleteById);
-router.put(
+router.post(
   "/update-image/:blogId",
   uploads.single("file"),
   controller.updateBlogImage
