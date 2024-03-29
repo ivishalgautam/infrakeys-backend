@@ -39,12 +39,14 @@ async function update(req, res) {
     .join(", ");
   const updateValues = Object.values(data);
 
+  let image = `/assets/categories/products/${req.file.filename}`;
+
   try {
     const { rows, rowCount } = await pool.query(
-      `UPDATE blogs SET ${updateColumns} WHERE slug = $${
+      `UPDATE blogs SET ${updateColumns}, image = $${
         updateValues.length + 1
-      } returning *`,
-      [...updateValues, blogId]
+      } WHERE slug = $${updateValues.length + 2} returning *`,
+      [...updateValues, image, blogId]
     );
 
     if (rowCount === 0) {
